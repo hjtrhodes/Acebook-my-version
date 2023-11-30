@@ -1,18 +1,14 @@
-# Acebook
+# This codebase was initially cloned from Makers Acebook MERN Project Seed
 
-In this project, you are tasked with working on an existing application. A significant part of the challenge will be to familiarise yourself with the codebase you've inherited, as you work to **improve and extend** it.
+This is my cloned version of the project repo to continue development at project completion.
+I was responsible for the likes functionality, display order on the Feed Page and all styling. I also contributed via pairing to the comments functionality and images upload functionality.
 
-## Documentation
+We worked in a team of 5 on this project using the MERN stack and testing with Jest and Cypress. The aim create a Facebook clone from a legacy codebase in under 2 weeks, further practice version control and working in a team with agile methodology. Additionally we developed more confidence with React and JSX, particularly asynchronous programming such as using useEffect to trigger re-renders at the correct time. As a team we elected to work the full stack responsible for our feature in both back and front end. Group Members were Ray Brown, Harry Rhodes, Dave O'Donnell, Perran Thomas and Liza Tarasova.
 
-[More documentation of the codebase and its architecture can be found here.](./DOCUMENTATION.md) It's recommended you all read this _after making sure the whole setup below worked for everyone_. Then work together on a diagram describing how the application works.
 
-[A template Miro board for your diagrams can be found here.](https://miro.com/app/board/uXjVPqNzFfc=/?share_link_id=360271550320) Make sure your validate your diagrams with your coach.
 
-## Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
-
-## Quickstart
+## Quickstart Setup for Local
 
 ### Install Node.js
 
