@@ -3,7 +3,7 @@
 This is my cloned version of the project repo to continue development at project completion.
 I was responsible for the likes functionality, display order on the Feed Page and all styling. I also contributed via pairing to the comments functionality and images upload functionality.
 
-We worked in a team of 5 on this project using the MERN stack and testing with Jest and Cypress. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks, further practice version control and working in a team with agile methodology. Additionally we developed more confidence with React and JSX, particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack responsible for our feature in both back and front end. Group Members were Ray Brown, Harry Rhodes, Dave O'Donnell, Perran Thomas and Liza Tarasova.
+We worked in a team of 5 on this project using the MERN stack and testing with Jest and Cypress. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks, further practice version control and working in a team with agile methodology. Additionally, I developed more confidence with React and JSX, particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack, responsible for our feature in both back and front end. Group Members were Ray Brown, Harry Rhodes, Dave O'Donnell, Perran Thomas and Liza Tarasova.
 
 
 
