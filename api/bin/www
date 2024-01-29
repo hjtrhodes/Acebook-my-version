@@ -6,9 +6,11 @@ if (!process.env.JWT_SECRET) {
   process.exit();            
 }
 
+let password;
+
 try {
   // Try to use local config
-  const localConfig = require('./config');
+  const localConfig = require('../config');
   password = localConfig.password;
 } catch (error) {
   // If local config is not available, use environment variable
@@ -34,12 +36,19 @@ app.set("port", port);
 /**
  * Connect to MongoDB
  **/
-
-var mongoDbUrl = process.env.MONGODB_URL || `mongodb+srv://hjtrhodes:${password}@acebook.68ebyeu.mongodb.net/?retryWrites=true&w=majority`;
-mongoose.connect(mongoDbUrl, {
+mongoose.connect(`mongodb+srv://hjtrhodes:${password}@acebook.68ebyeu.mongodb.net/?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+  useUnifiedTopology: true
+})
+
+  .then(() => { // call the then method, which adds a callback function to the promise, to handle the success case
+    console.log('Successfully connected to MongoDB Atlas!'); // log a message to the console
+  })
+  .catch((error) => { // call the catch method, which adds a callback function to the promise, to handle the failure case
+    console.log('Unable to connect to MongoDB Atlas!', error.message); // log a message to the console
+    console.error(error); // log the error to the console
+  });
+  
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
