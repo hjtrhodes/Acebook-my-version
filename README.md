@@ -58,7 +58,7 @@ We worked in a team of 5 on this project using the MERN stack and testing with J
 
    ```
    ; cd api
-   ; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm start
+   ; JWT_SECRET=YOURSECRETHERE npm start
    ```
 2. Start the front end application (in the `frontend` directory)
 
