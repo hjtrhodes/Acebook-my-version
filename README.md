@@ -85,7 +85,7 @@ The automated tests run by sending actual HTTP requests to the API. Therefore, b
 # Make sure you're in the api directory
 ; cd api
 
-; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run start:test
+; JWT_SECRET=YOURSECRETHERE npm run start:test
 ```
 
 You should leave this running in a terminal.
@@ -100,7 +100,7 @@ Run the tests in a new terminal session:
 # Make sure you're in the api directory
 ; cd api
 
-; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run test
+; JWT_SECRET=YOURSECRETHERE npm run test
 ```
 
 ####  Running tests for the frontend
@@ -111,7 +111,7 @@ Start the front end in a new terminal session
 # Make sure you're in the frontend directory
 ; cd frontend
 
-; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm start
+; JWT_SECRET=YOURSECRETHERE npm start
 ```
 
 Then run the tests in a new terminal session
@@ -120,7 +120,7 @@ Then run the tests in a new terminal session
 # Make sure you're in the frontend directory
 ; cd frontend
 
-; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run test
+; JWT_SECRET=YOURSECRETHERE npm run test
 ```
 
 ## MongoDB Connection Errors?
