@@ -29,7 +29,7 @@ const Profile = ({ navigate }) => {
     } else {
       navigate('/login');
     }
-  }, [token, navigate]);
+  }, []);
 
   console.log('This is my console print of', profile);
 

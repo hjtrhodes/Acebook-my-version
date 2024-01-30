@@ -26,7 +26,7 @@ const Feed = ({ navigate }) => {
         })
 
     } // TODO redirect to login page if token exists
-  }, [token])
+  }, [])
 
 
   // const logout = () => {
