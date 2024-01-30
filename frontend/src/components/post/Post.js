@@ -30,7 +30,7 @@ const Post = ({ post }) => {
     } else {
       console.log("No token set (in Post component)");
     }
-  }, [token, post, post.author]);
+  }, []);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
