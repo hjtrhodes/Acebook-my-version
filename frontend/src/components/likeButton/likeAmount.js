@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './likeAmount.css';
+import baseUrl from '../../util/baseUrl';
 
 const LikeAmount = (props) => {
     const [token, setToken] = useState(window.localStorage.getItem('token'));
@@ -9,7 +10,7 @@ const LikeAmount = (props) => {
         const fetchData = async () => {
             try {
                 if (token) {
-                    const response = await fetch(`/posts/${props.post_id}/likes`, {
+                    const response = await fetch(`${baseUrl}/posts/${props.post_id}/likes`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }

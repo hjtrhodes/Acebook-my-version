@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import Acebook from './static/Acebook.png';
+import baseUrl from '../../util/baseUrl';
+
 
 const LogInForm = ({ navigate }) => {
   const [email, setEmail] = useState("");
@@ -13,7 +15,7 @@ const LogInForm = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let response = await fetch( '/tokens', {
+    let response = await fetch( `${baseUrl}/tokens`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

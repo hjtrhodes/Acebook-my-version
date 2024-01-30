@@ -3,6 +3,21 @@ const TokenGenerator = require("../lib/token_generator");
 const Post = require("../models/post");
 
 const UsersController = {
+  
+  GetAllUsers: async (req, res) => {
+    try {
+      const users = await User.find({});
+      if (!users) {
+        return res.status(404).json({ message: 'No users found' });
+      }
+      const token = TokenGenerator.jsonwebtoken(req.user_id);
+      return res.status(200).json({ message: 'OK', users: users, token: token });
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  },
+  
   Create: (req, res) => {
     const user = new User(req.body);
     user.save((err) => {

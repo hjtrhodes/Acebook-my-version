@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './SignupForm.css';
 import Acebook from '../auth/static/Acebook.png';
+import baseUrl from '../../util/baseUrl';
+
+
 const SignUpForm = ({ navigate }) => {
 
   const [displayName, setDisplayName] = useState("");
@@ -14,7 +17,7 @@ const SignUpForm = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let response = await fetch( '/users', {
+    let response = await fetch( `${baseUrl}/users`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

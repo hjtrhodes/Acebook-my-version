@@ -4,6 +4,7 @@ import NavBar from '../navBar/NavBar';
 import defaultProfile from '../../assets/defaultProfile.png';
 import './UserPublicPage.css'
 import ChronologicalPosts from '../chronologicalPosts/ChronologicalPosts';
+import baseUrl from '../../util/baseUrl';
 
 const UserPublicPage = ({ navigate }) => {
   const { userId } = useParams();
@@ -17,7 +18,7 @@ const UserPublicPage = ({ navigate }) => {
     }
     if (token) {
       // Get user info
-      fetch(`/users/${userId}`, {
+      fetch(`${baseUrl}/users/${userId}`, {
         headers: { 
           'Authorization': `Bearer ${token}` 
       }
@@ -30,7 +31,7 @@ const UserPublicPage = ({ navigate }) => {
       })
       .then(() => {
         // Afterwards; get posts list
-        fetch(`/posts/user/${userId}`, {
+        fetch(`${baseUrl}/posts/user/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Post.css'
 import LikeButton from '../likeButton/likeButton';
 import ProfileImageThumbnail from '../profileImageThumbnail/ProfileImageThumbnail';
+import baseUrl from '../../util/baseUrl';
 
 const Post = ({ post }) => {
   const [author, setAuthor] = useState(null);
@@ -12,11 +13,8 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     if (token) {
-      console.log("Displaying post");
-      console.log(post);
-      console.log("Using effect");
-      console.log(post.author);
-      fetch(`/users/${post.author}`, {
+
+      fetch(`${baseUrl}/users/${post.author}`, {
         // NOTE: This may have to be changed to post.author.id
         headers: {
           'Authorization': `Bearer ${token}`
@@ -51,7 +49,7 @@ const Post = ({ post }) => {
       setComment('');
       return;
     }
-    fetch(`/posts/${post._id}`, {
+    fetch(`${baseUrl}/posts/${post._id}`, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',

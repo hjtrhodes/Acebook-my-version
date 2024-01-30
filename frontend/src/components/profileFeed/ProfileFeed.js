@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-import NewPost from '../newPost/NewPost';
 import './ProfileFeed.css';
-
+import baseUrl from '../../util/baseUrl';
 
 
 const ProfileFeed = ({ navigate }) => {
@@ -11,7 +10,7 @@ const ProfileFeed = ({ navigate }) => {
 
   useEffect(() => {
     if(token) {
-      fetch("/posts/user", {
+      fetch(`${baseUrl}/posts/user`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

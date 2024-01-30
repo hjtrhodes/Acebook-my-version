@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const JWT = require("jsonwebtoken");
-
+const cors = require('cors'); 
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
@@ -16,6 +16,13 @@ app.use(express.json())
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+// CORS middleware
+app.use(cors({
+  origin: ['https://acebook-mo3r.onrender.com', 'http://localhost:3000'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {

@@ -8,6 +8,7 @@ router.get("/user", UsersController.FindSingleUserById);
 router.put('/likes', UsersController.AddOrRemovePostIdtoUserifLikedOrUnliked);
 router.get("/display-name", UsersController.FindSingleDisplayNameById);
 router.get("/:id", UsersController.IndexById);
+router.get("/", UsersController.GetAllUsers);
 
   // NEED TO RETURN TO THIS (TODO)
   // router.get("/users", UsersController.FindAll);

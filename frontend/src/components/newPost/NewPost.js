@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './NewPost.css';
-
+import baseUrl from '../../util/baseUrl';
 
 const NewPost = ({ user_id }) => {
     const [message, setMessage] = useState("");
@@ -19,7 +19,7 @@ const NewPost = ({ user_id }) => {
 
     console.log(`Bearer ${token}`);
 
-        const response = await fetch('/posts', {
+        const response = await fetch(`${baseUrl}/posts`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

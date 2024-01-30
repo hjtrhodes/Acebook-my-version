@@ -4,6 +4,7 @@ import './Feed.css'
 import NavBar from '../navBar/NavBar';
 import Find from '../find/Find';
 import NewPost from '../newPost/NewPost'
+import baseUrl from '../../util/baseUrl';
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ const Feed = ({ navigate }) => {
 
   useEffect(() => {
     if(token) {
-      fetch("/posts", {
+      fetch(`${baseUrl}/posts`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
