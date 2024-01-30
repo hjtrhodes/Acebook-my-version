@@ -11,26 +11,24 @@ const Post = ({ post }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [isContentVisible, setIsContentVisible] = useState(false);
 
-  useEffect(() => {
-    if (token) {
+  // useEffect(() => {
+  //   if (token) {
 
-      fetch(`${baseUrl}/users/${post.author}`, {
-        // NOTE: This may have to be changed to post.author.id
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(res => res.json())
-      .then(async result => {
-        console.log("Setting author");
-        console.log(result);
-        setAuthor(result.user);
-      })
-      .catch(err => console.error(err));
-    } else {
-      console.log("No token set (in Post component)");
-    }
-  }, []);
+  //     fetch(`${baseUrl}/users/${post.author}`, {
+  //       // NOTE: This may have to be changed to post.author.id
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(async result => {
+  //       setAuthor(result.user);
+  //     })
+  //     .catch(err => console.error(err));
+  //   } else {
+  //     console.log("No token set (in Post component)");
+  //   }
+  // }, []);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
