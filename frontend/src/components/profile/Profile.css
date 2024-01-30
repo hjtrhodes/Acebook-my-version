@@ -1,6 +1,6 @@
 /* styles.css */
 .profilecontainer {
-    max-width: 800px;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -10,8 +10,8 @@
 }
 
 .profilepic {
-    width: 200px; /* Set the desired width for the image */
-    height: 200px; /* Set the desired height for the image */
+    width: 10%; /* Set the desired width for the image */
+    height: 10%; /* Set the desired height for the image */
     object-fit: cover; /* Maintain the aspect ratio and cover the container */
     border: 3px solid #87CEEB; /* Add a 3px solid outline with a nice blue color */
     border-radius: 50%; /* Make the border a circle */
@@ -45,4 +45,13 @@
     &:hover {
     background-color: #4682b4;
     }
+}
+
+.feed {
+    width: 800px;
+    margin: 0 auto; /* Center the container horizontally */
+    text-align: center; /* Center text content horizontally */
+    display: flex; /* Enable Flexbox layout */
+    flex-direction: column; /* Stack flex items vertically */
+    align-items: center; /* Center flex items horizontally */
 }

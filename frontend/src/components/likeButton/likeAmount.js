@@ -11,6 +11,7 @@ const LikeAmount = (props) => {
             try {
                 if (token) {
                     const response = await fetch(`${baseUrl}/posts/${props.post_id}/likes`, {
+                        method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }

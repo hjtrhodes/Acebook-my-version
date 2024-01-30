@@ -29,7 +29,7 @@ const Profile = ({ navigate }) => {
     } else {
       navigate('/login');
     }
-  }, []);
+  }, [token, navigate]);
 
   console.log('This is my console print of', profile);
 
@@ -53,11 +53,9 @@ const Profile = ({ navigate }) => {
         <div>
         <NewPost />
         </div>
-        
-        {/* <h3>Post & Number</h3>
-        <h3>Followers & Number</h3>
-        <h3>Following & Number</h3> */}
-        <ProfileFeed navigate={navigate}/>
+        </div>
+        <div className='feed'>
+        <ProfileFeed  navigate={navigate}/>
         </div>
         </>
       )

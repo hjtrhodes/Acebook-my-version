@@ -5,7 +5,6 @@ import LikeAmount from './likeAmount';
 import baseUrl from '../../util/baseUrl';
 
 const LikeButton = (props) => {
-    const [isLiked, setIsLiked] = useState(false);
     const [likes, setLikes] = useState(0);
     const [token, setToken] = useState(window.localStorage.getItem('token'));
 
@@ -45,13 +44,11 @@ const LikeButton = (props) => {
         if (response.ok) {
         const data = await response.json();
             if (data.postIsLiked === true) {
-                setIsLiked(true)
                 setLikes(1);
             } 
             else if (
                 data.postIsLiked === false
             ) {
-                setIsLiked(false) 
                 setLikes(-1);
             } 
         } else {

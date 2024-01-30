@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-import './ProfileFeed.css';
 import baseUrl from '../../util/baseUrl';
 
 

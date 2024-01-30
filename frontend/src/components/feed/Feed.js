@@ -26,13 +26,7 @@ const Feed = ({ navigate }) => {
         })
 
     } // TODO redirect to login page if token exists
-  }, [])
-
-
-  // const logout = () => {
-  //   window.localStorage.removeItem("token")
-  //   navigate('/login')
-  // }
+  }, [token])
   
     if(token) {
       return(

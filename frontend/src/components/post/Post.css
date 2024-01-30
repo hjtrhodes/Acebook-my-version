@@ -2,32 +2,10 @@
     font-size: 0.7em; /* Adjust the size as needed */
 }
 
-.commentbutton {
-        background-color: #87CEEB;
-        margin-left: 2px; /* Adjust margin between buttons if needed */
-        border: 2px solid lightblue;
-        padding: 8px 16px; /* Add padding for better visual appearance */
-        color: #ffffff;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        width: 60%;
-        border-radius: 5px;
-        margin-top: 10px;
-    
-        &:hover {
-        background-color: #4682b4;
-        }
-    }
-
 .author-info {
-        padding: 5px;
-}
-
-.comments {
-    text-align: center;
-    margin-left: 250px;
-    margin-right: 250px;
-    max-width: 800px;
+    padding: 5px;
+    font-size: 0.8em; /* Apply font size to the text */
+    color: #606770; /* Apply color to the text */
 }
 
 .likebutton {
@@ -38,21 +16,22 @@
 }
 
 .authorline {
-    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.authorlinetext {
+    margin-right: 10px;
 }
 
 .post {
-    background: lightcyan;
+    background: #f0f2f5;
     padding: 10px;
     border: 1px solid black; /* Added 'solid' as the border style */
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
-.post-container {
-    margin: auto;
-    padding: 10px;
-    width: 75%;
-}
 
 .image-box {
     padding: 40px;
@@ -66,14 +45,48 @@ article img {
     display: flex;
 }
 
-small.smallText {
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 10px;
+.comments {
+    border-top: 2px solid #ccc; /* Add a solid 2px border at the top */
+    padding-top: 10px; /* Add some padding to create space between the border and the content */
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.post-message {
-    font-size: 18px;
-    padding-top: 20px;
+.comment {
+    background-color: #f0f2f5;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 30%;
 }
+
+.comment-info {
+    font-size: 0.8em;
+    color: #606770;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 100%
+}
+
+.comment-button {
+    background-color: transparent; /* Make the button background transparent */
+    color: #606770; /* Set the text color to pale grey */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer; /* Set the cursor to a pointer on hover */
+    transition: color 0.3s, text-decoration 0.3s; /* Add transition effects */
+}
+
+.comment-button:hover {
+    text-decoration: underline; /* Underline text on hover */
+}
+
 

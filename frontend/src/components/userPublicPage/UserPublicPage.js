@@ -51,7 +51,7 @@ const UserPublicPage = ({ navigate }) => {
     } else {
       navigate('/login');
     }
-  }, []);
+  }, [token, navigate, userInfo, postsList, userId]);
 
   if (!token) {
     navigate('/login');

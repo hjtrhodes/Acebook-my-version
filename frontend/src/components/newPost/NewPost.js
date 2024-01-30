@@ -66,7 +66,7 @@ const NewPost = ({ user_id }) => {
                     </div>
                 )}
 
-                <form className='newpostform' onSubmit={handleSubmit} enctype="multipart/form-data">
+                <form className='newpostform' onSubmit={handleSubmit} encType="multipart/form-data">
                     <h4 className='newposttitle'>Add a new post</h4>
                     <textarea 
                     placeholder="Enter new post here..."
