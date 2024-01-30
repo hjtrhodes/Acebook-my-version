@@ -76,7 +76,7 @@ const Post = ({ post }) => {
 
   return (
     <div className='postcontainer' data-cy="post">
-      <div data-cy="author-info" className="author-info">
+      {/* <div data-cy="author-info" className="author-info">
               { author ? (
                 <>
                   <ProfileImageThumbnail user={ author }/>
@@ -84,7 +84,7 @@ const Post = ({ post }) => {
                 </>
               ) : "Loading..."
               }
-      </div>
+      </div> */}
 
       <div className='postcontentandlikebutton'>
           <article data-cy="post" key={ post._id }>
@@ -93,9 +93,9 @@ const Post = ({ post }) => {
             <br />
                 <div>{ post.message }</div>
               <small className="smallText">{formatDate(post.date)}</small></div>
-            <div className='likebutton'>
+            {/* <div className='likebutton'>
               <LikeButton post_id={ post._id }/>
-            </div>
+            </div> */}
           </article>
       </div>
       
