@@ -57,7 +57,7 @@ const SignUpForm = ({ navigate }) => {
                   <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
                   <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />
                   <input className='submit' id='submit' type="submit" value="Submit" />
-                  <button className='submit' data-cy="submit-button" onClick={() => urlTo('/login')}>Go to Login</button>
+                  <button className='signup-button' data-cy="submit-button" onClick={() => urlTo('/login')}>Go to Login</button>
                   </form>
         </div></div></div>
 

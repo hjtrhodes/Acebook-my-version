@@ -52,7 +52,7 @@ const LogInForm = ({ navigate }) => {
                 <input  placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
                 <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
                 <input className='submit' role='submit-button' id='submit' type="submit" value="Login" />
-                <button className='submit' data-cy="submit-button" onClick={() => urlTo('/signup')}>Sign Up</button>
+                <button className='signup-button' data-cy="submit-button" onClick={() => urlTo('/signup')}>Create new account</button>
                 </form>
           </div></div></div>
 
