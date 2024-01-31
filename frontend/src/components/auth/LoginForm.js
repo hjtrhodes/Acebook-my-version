@@ -46,22 +46,26 @@ const LogInForm = ({ navigate }) => {
 
     return (
       <div className='container' >
+        
         <div className='split left'>
-          <div className='centred'>
-            <div className='left' ><form  onSubmit={handleSubmit}>
-                <input  placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
-                <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
-                <input className='submit' role='submit-button' id='submit' type="submit" value="Login" />
-                <button className='signup-button' data-cy="submit-button" onClick={() => urlTo('/signup')}>Create new account</button>
-                </form>
-          </div></div></div>
-
+            <div className='left' >
+              <img  className='logo' src={Acebook} alt="logo" />
+            </div>
+        </div>
+          
           <div className='split right'>
-            <div className='centred'>
               <div className='right' >
-                <img  className='logo' src={Acebook} alt="logo" />
-          </div></div></div>
-      </div>
+                    <form  onSubmit={handleSubmit}>
+                    <input  placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
+                    <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
+                    <input className='submit' role='submit-button' id='submit' type="submit" value="Login" />
+                    <div class="grey-line"></div>
+                    <button className='signup-button' data-cy="submit-button" onClick={() => urlTo('/signup')}>Create new account</button>
+                    </form>
+              </div>
+          </div>
+        
+        </div>
     );
 }
 
