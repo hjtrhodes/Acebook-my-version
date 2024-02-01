@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Acebook from '../../assets/Acebook.png';
+import Acebook from '../../assets/AcebookLogo.png';
 import './NavBar.css'
 import Find from '../find/Find';
 

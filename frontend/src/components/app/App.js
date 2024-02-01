@@ -1,6 +1,6 @@
 import './App.css';
-import LoginForm from '../auth/LoginForm'
-import SignUpForm from '../user/SignUpForm'
+import LoginForm from '../login/LoginForm'
+import SignUpForm from '../signup/SignUpForm'
 import NavBar from '../navBar/NavBar';
 import NewPost from '../newPost/NewPost';
 import Feed from '../feed/Feed'
