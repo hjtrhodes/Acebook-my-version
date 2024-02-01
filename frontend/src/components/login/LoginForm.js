@@ -44,7 +44,7 @@ const LogInForm = ({ navigate }) => {
 
   return (
   <>
-    <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen bg-transparent transition-all mt-10 md:mt-0'>
+    <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen bg-transparent transition-all pb-20 md:pb-0'>
       <img className='p-20 bg-transparent border-0 md:w-1/2' src={Acebook} alt="logo" />
       <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-5 rounded-lg shadow-lg w-96 h-auto md:w-80'>
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
@@ -69,7 +69,7 @@ const LogInForm = ({ navigate }) => {
                                 This website is deployed as a free web service on Render.com
                             </p>
                             <p className='rendermessage'>
-                                These web services spin down with inactivity. If have clicked the Log in button and nothing has happened, you may have to wait a few minutes for the backend server to wake up then try again. Sorry about that, but why not take a well-earned break, go grab a cup of
+                                These web services spin down with inactivity. If you have clicked the Log in button and nothing has happened, you may have to wait a few minutes for the backend server to wake up then try again. Sorry about that, but why not take a well-earned break, go grab a cup of
                                 tea and come back?
                             </p>
             <button className="close-message-button bg-red-300 mt-3 text-white px-4 py-2 text-sm rounded transition duration-300 hover:bg-red-400" onClick={toggleMessage}>
