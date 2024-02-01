@@ -69,8 +69,7 @@ const LogInForm = ({ navigate }) => {
                                 This website is deployed as a free web service on Render.com
                             </p>
                             <p className='rendermessage'>
-                                These web services spin down with inactivity, so if you are not seeing any pictures and
-                                can't login or signup, you may have to wait a few minutes for the backend server to wake up. Sorry about that, but why not take a well-earned break, go grab a cup of
+                                These web services spin down with inactivity. If have clicked the Log in button and nothing has happened, you may have to wait a few minutes for the backend server to wake up then try again. Sorry about that, but why not take a well-earned break, go grab a cup of
                                 tea and come back?
                             </p>
             <button className="close-message-button bg-red-300 mt-3 text-white px-4 py-2 text-sm rounded transition duration-300 hover:bg-red-400" onClick={toggleMessage}>
