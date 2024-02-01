@@ -5,11 +5,6 @@ import ProfileFeed from '../profileFeed/ProfileFeed';
 import NewPost from '../newPost/NewPost';
 import './Profile.css';
 import baseUrl from '../../util/baseUrl';
-// Some logic required: If you're landing on your own profile, you see the update image. If you're landing on another person's profile, you don't. 
-// But do you see follow/unfollow instead? 
-
-// const Profile = ({ navigate, currentUserId, profileOwnerId }) => {
-//     const isOwnProfile = currentUserId === profileOwnerId;
 
 const Profile = ({ navigate }) => {
   const [profile, setProfile] = useState(null);

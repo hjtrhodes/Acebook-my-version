@@ -28,6 +28,7 @@ const LogInForm = ({ navigate }) => {
     if (response.status === 201) {
       let data = await response.json();
       window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("displayName", data.displayName)
       navigate('/posts');
     } else {
       navigate('/login');

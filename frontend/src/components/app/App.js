@@ -1,7 +1,7 @@
 import './App.css';
 import LoginForm from '../login/LoginForm'
 import SignUpForm from '../signup/SignUpForm'
-import NavBar from '../navBar/NavBar';
+import { Navigation } from '../navBar/navigation';
 import NewPost from '../newPost/NewPost';
 import Feed from '../feed/Feed'
 // import ProfileFeed from '../profileFeed/ProfileFeed';
@@ -26,7 +26,7 @@ const App = () => {
           <Route path='/posts/user/:userId' element={<UserPublicPage navigate={ useNavigate() }/>}/>
           <Route path='/login'  element={<LoginForm  navigate={ useNavigate() }/>}/>
           <Route path='/signup' element={<SignUpForm navigate={ useNavigate() }/>}/>
-          <Route path='/navbar' element={<NavBar navigate={ useNavigate() }/>}/>
+          <Route element={<Navigation/>}/>
           <Route path='/profile' element={<Profile navigate={ useNavigate() }/>}/>
           <Route path='/newpost' element={<NewPost navigate={ useNavigate() }/>}/>
           <Route path="/posts/:postId" element={<Post />} /> 
