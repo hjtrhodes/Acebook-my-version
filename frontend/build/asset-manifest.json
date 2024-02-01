@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.9a9ea038.css",
-    "main.js": "/static/js/main.32340fe4.js",
-    "static/js/787.9e9f4ffd.chunk.js": "/static/js/787.9e9f4ffd.chunk.js",
+    "main.js": "/static/js/main.4c23b1f2.js",
+    "static/js/592.bf6ca574.chunk.js": "/static/js/592.bf6ca574.chunk.js",
     "static/media/AcebookLogo.png": "/static/media/AcebookLogo.3d788bf45bcd17bbe236.png",
     "static/media/like.png": "/static/media/like.438cec2fc4cf138e2d42.png",
     "static/media/Acebook.png": "/static/media/Acebook.dca9aec991de732c9ab4.png",
     "static/media/defaultProfile.png": "/static/media/defaultProfile.98945f4aded53b891dbc.png",
     "index.html": "/index.html",
     "main.9a9ea038.css.map": "/static/css/main.9a9ea038.css.map",
-    "main.32340fe4.js.map": "/static/js/main.32340fe4.js.map",
-    "787.9e9f4ffd.chunk.js.map": "/static/js/787.9e9f4ffd.chunk.js.map"
+    "main.4c23b1f2.js.map": "/static/js/main.4c23b1f2.js.map",
+    "592.bf6ca574.chunk.js.map": "/static/js/592.bf6ca574.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9a9ea038.css",
-    "static/js/main.32340fe4.js"
+    "static/js/main.4c23b1f2.js"
   ]
 }
