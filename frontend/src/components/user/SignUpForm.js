@@ -58,7 +58,7 @@ const SignUpForm = ({ navigate }) => {
         <input placeholder='Name' id="displayName" type='text' value={ displayName } onChange={handleDisplayNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
-        <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' role='submit-button' id='submit' type="submit" value="Submit" />
+        <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' id='sign-up-button' type="submit" value="Sign Up" />
         <div className="grey-line border-t border-gray-300 my-4">
         </div>
         <div className="flex justify-center">
