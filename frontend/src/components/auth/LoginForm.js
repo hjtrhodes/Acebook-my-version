@@ -46,7 +46,7 @@ const LogInForm = ({ navigate }) => {
   <>
     <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen bg-transparent transition-all'>
       <img className='p-20 bg-transparent border-0 md:w-1/2' src={Acebook} alt="logo" />
-      <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-8 rounded-lg shadow-lg w-96 h-auto'>
+      <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-5 rounded-lg shadow-lg w-96 h-auto'>
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' role='submit-button' id='submit' type="submit" value="Log in" />
