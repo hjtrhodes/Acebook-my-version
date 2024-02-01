@@ -1,24 +1,64 @@
-import {
-  IdentificationIcon,
-  ExclamationCircleIcon,
-  HomeIcon,
-} from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { IdentificationIcon, ExclamationCircleIcon, HomeIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Bars3Icon } from "@heroicons/react/24/outline";
 
 const User = () => {
-  const [displayName, setDisplayName] = useState(localStorage.getItem("displayName"))
+  const [displayName, setDisplayName] = useState(localStorage.getItem("displayName"));
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768); // State to track screen size
   const navigate = useNavigate();
-  const ms = new Date().getUTCMilliseconds();
+  const menuRef = useRef<HTMLUListElement>(null); // Ref for the menu
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768); // Update isLargeScreen state when window is resized
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Close the menu if clicked outside of it
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
+    window.localStorage.removeItem("token");
+    navigate('/login');
+  };
 
   const urlTo = (path: string) => {
     navigate(path);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
+  };
+
+  const handleMouseEnter = () => {
+    if (isLargeScreen) {
+      setIsMenuOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isLargeScreen) {
+      setIsMenuOpen(false);
+    }
   };
 
   const items = [
@@ -43,12 +83,12 @@ const User = () => {
   ];
 
   return (
-    <div className="relative group">
-      <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800">
-          <Bars3Icon className="my-auto ml-3 rounded-full w-7 h-7" />
+    <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800" onClick={toggleMenu}>
+        <Bars3Icon className="my-auto ml-3 rounded-full w-7 h-7" />
         <p className="mr-3 font-bold text-gray-800 dark:text-gray-200">{displayName}</p>
       </div>
-      <ul className="absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
+      <ul ref={menuRef} className={`absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 ${isMenuOpen ? 'flex' : 'hidden'} flex-col ${isLargeScreen ? '-left-[10em]' : '-right-[8em]'} rounded-xl`}>
         {items.map((item) => (
           <li
             key={item.title}
