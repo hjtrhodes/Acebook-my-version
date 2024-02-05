@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-import './Feed.css'
 import NavBar from '../navBar/NavBar';
 import NewPost from '../newPost/NewPost'
 import baseUrl from '../../util/baseUrl';
@@ -29,16 +28,12 @@ const Feed = ({ navigate }) => {
   
   if(token) {
     return (
-      <div className='main-container'>
-        <div className='navbar-container'>
-          <NavBar posts={posts} navigate={navigate} />
-        </div>
-        <div className='feedcontainer'>
-          <h2>Home</h2>
-          <div className='newPostcontainer'>
+      <>
+      <NavBar posts={posts} navigate={navigate} />
+      
+      <div className='main-container bg-gray-100 pt-4'>
+        <div className='w-1/2 mx-auto'>
             <NewPost />
-          </div>
-          <h3>All Posts</h3>
           <div id='feed' role="feed">
             {posts
               .slice()
@@ -49,6 +44,7 @@ const Feed = ({ navigate }) => {
           </div>
         </div>
       </div>
+    </>
     );
   } else {
       navigate('/login')
@@ -56,3 +52,4 @@ const Feed = ({ navigate }) => {
 }
 
 export default Feed;
+
