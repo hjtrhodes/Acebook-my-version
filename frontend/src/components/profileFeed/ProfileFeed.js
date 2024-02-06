@@ -33,17 +33,18 @@ const ProfileFeed = ({ navigate }) => {
     if(token) {
       return(
         <>
-          <h2>Your Posts</h2>
           <article>
-          <div id='profilefeed' role="profilefeed">
+          <div id='profilefeed' role="profilefeed" className='main-container bg-gray-100 pt-4 z-0'>
+            <div className='w-full sm:w-1/3 mx-auto z-0'>
               {posts
               .slice()
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map((post) => (
                   <Post post={ post } key={ post._id } /> )
               )}
-              
-          </div></article>
+          </div>
+          </div>
+        </article> 
         </>
       )
     } else {

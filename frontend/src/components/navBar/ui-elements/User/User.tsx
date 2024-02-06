@@ -83,8 +83,8 @@ const User = () => {
   ];
 
   return (
-    <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800" onClick={toggleMenu}>
+    <div className="relative z-10" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800 z-10" onClick={toggleMenu}>
         <Bars3Icon className="my-auto ml-3 rounded-full w-7 h-7" />
         <p className="mr-3 font-bold text-gray-800 dark:text-gray-200">{firstName}</p>
       </div>
@@ -92,7 +92,7 @@ const User = () => {
         {items.map((item) => (
           <li
             key={item.title}
-            className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+            className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl z-10"
             onClick={item.onclick}
           >
             <div

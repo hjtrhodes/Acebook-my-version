@@ -61,7 +61,7 @@ const NewPost = ({ fetchPosts }) => {
     };
 
     return(
-        <div className="rounded-lg shadow-lg p-4 bg-white mb-3 border">
+        <div className="rounded-lg shadow-lg p-4 bg-white mb-3 border z-0">
                         {image && (
                             <div className="image-preview flex items-center justify-center mb-3">
                                 <img
@@ -107,9 +107,9 @@ const NewPost = ({ fetchPosts }) => {
                 htmlFor="postImage"
                 className="file-input inline-block cursor-pointer transition-transform duration-300 transform hover:-translate-y-1"
                 >
-                    <div className="file-input inline-block cursor-pointer transition-transform duration-300 transform hover:-translate-y-1 flex items-center">
+                    <div className="file-input inline-block cursor-pointer transition-transform duration-300 transform hover:-translate-y-1 flex items-center z-0">
                         <FcAddImage size={40}/>
-                        <span className="text-gray-400 ml-2" ><strong>Photo</strong></span>
+                        <span className="text-gray-400 ml-2 z-0" ><strong>Photo</strong></span>
                     </div>
                 </label>
             </form>
