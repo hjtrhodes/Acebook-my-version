@@ -15,8 +15,7 @@ router.post("/", PostsController.Create);
 router.get("/user", PostsController.IndexLoggedInUser);
 router.get("/user/:authorId", PostsController.IndexByAuthorId);
 router.put("/:id", PostsController.Comment);
-router.put("/:id/likes", PostsController.Likes);
-router.get("/:id/likes", PostsController.GetLikes);
+router.put("/:id/likes", PostsController.AddOrRemoveUserIDFromPostLikesArray);
 
 
 

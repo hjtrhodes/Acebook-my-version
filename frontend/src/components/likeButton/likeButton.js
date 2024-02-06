@@ -1,88 +1,67 @@
-import likebutton from './static/like.png';
-import React, { useState, useEffect } from 'react';
-import './likeButton.css';
-import LikeAmount from './likeAmount';
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { useState } from 'react';
 import baseUrl from '../../util/baseUrl';
 
 const LikeButton = (props) => {
-    const [likes, setLikes] = useState(0);
-    const [token, setToken] = useState(window.localStorage.getItem('token'));
+    const [likesState, setLikesState] = useState("");
 
-    const updateLikesOnServer = async (newLikes) => {
+    const checkIfUserHasLikedPost = async () => {
         try {
-        const response = await fetch(`${baseUrl}/posts/${props.post_id}/likes`, {
-            method: 'put',
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({ likes : newLikes }),
-        });
-    
-        if (response.ok) {
-            const data = await response.json();
-            window.localStorage.setItem('token', data.token);
-        } else {
-            console.error('Failed to update likes');
-        }
+            const userId = window.localStorage.getItem("userId");
+            const token = window.localStorage.getItem("token");
+
+            if (!userId || !token) {
+                console.error("User ID or token is missing, user not logged in");
+                throw new Error("User ID or token is missing, user not logged in");
+            }
+
+            const response = await fetch(`${baseUrl}/posts/${props.postId}/likes`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'userId': userId,
+                },
+                body: JSON.stringify({ 
+                    imageId: props.postId,
+                    userId: userId 
+                }),
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                props.updateLikeCount(responseData.likes);
+                setLikesState(responseData.message);
+            } else {
+                console.error('Failed to access userID array');
+            }
         } catch (error) {
             console.error('Error in fetching or parsing data:', error);
         }
     };
 
-    const AddOrRemovePostIdtoUserifLikedOrUnliked = async () => {
-    try {
-        const response = await fetch(`${baseUrl}/users/likes`, {
-        method: 'put',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ postId: props.post_id }),
-        });
-
-        if (response.ok) {
-        const data = await response.json();
-            if (data.postIsLiked === true) {
-                setLikes(1);
-            } 
-            else if (
-                data.postIsLiked === false
-            ) {
-                setLikes(-1);
-            } 
-        } else {
-        console.error('Failed to check if liked');
-        }
-    } catch (error) {
-        console.error('Error in fetching or parsing data:', error);
-    }
-};
-
-useEffect(() => {
-    updateLikesOnServer(likes);
-}, [likes]);
-
-
     const handleSubmitLikes = async (e) => {
-    e.preventDefault();
-        AddOrRemovePostIdtoUserifLikedOrUnliked()
+        e.preventDefault();
+        checkIfUserHasLikedPost();
     };
 
     return (
-    <>
-        <form onSubmit={handleSubmitLikes}>
-            <button
-            className='likeButton'
-            type='submit'
-            onClick={handleSubmitLikes}
-            >
-            <img src={likebutton} alt='Like' />
-            </button><br />
-            <LikeAmount likes={ likes } post_id={ props.post_id } />
-        </form>
-    </>
+        <>
+            <form onSubmit={handleSubmitLikes}>
+                <button
+                    className={`likeButton transform hover:-translate-y-1 w-full rounded-full p-1 mb-1`}
+                    type='submit'
+                    onClick={handleSubmitLikes}
+                >
+                    <span className="flex items-center text-gray-400">
+                        {likesState ? <AiFillLike size={30} className="mr-1" style={{ color: 'blue' }} /> : <AiOutlineLike size={30} className="mr-1" />}
+                        <span className={`font-bold ${likesState ? 'text-blue-700' : ''}`}>Like</span>
+                    </span>
+                </button>
+            </form>
+        </>
     );
 };
 
 export default LikeButton;
+

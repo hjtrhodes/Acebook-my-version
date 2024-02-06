@@ -5,7 +5,8 @@ import baseUrl from '../../util/baseUrl';
 
 const SignUpForm = ({ navigate }) => {
 
-  const [displayName, setDisplayName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
@@ -26,7 +27,7 @@ const SignUpForm = ({ navigate }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ displayName: displayName, email: email, password: password })
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, password: password })
     });
 
     if (response.status === 201) {
@@ -38,8 +39,12 @@ const SignUpForm = ({ navigate }) => {
     }
   }
 
-  const handleDisplayNameChange = (event) => {
-    setDisplayName(event.target.value)
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value)
+  }
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value)
   }
 
   const handleEmailChange = (event) => {
@@ -55,8 +60,9 @@ const SignUpForm = ({ navigate }) => {
     <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen transition-all pb-20 md:pb-0'>
       <img className='p-20 bg-transparent border-0 md:w-1/2' src={Acebook} alt="logo" />
       <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-5 rounded-lg shadow-lg w-96 h-auto md:w-80'>
-        <input placeholder='Name' id="displayName" type='text' value={ displayName } onChange={handleDisplayNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
+        <input placeholder='First Name' id="firstName" type='text' value={ firstName } onChange={handleFirstNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
+        <input placeholder='Last Name' id="lastName" type='text' value={ lastName } onChange={handleLastNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
+        <input placeholder='Email Address' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' id='sign-up-button' type="submit" value="Sign Up" />
         <div className="grey-line border-t border-gray-300 my-4">

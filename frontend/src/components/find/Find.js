@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { FindContext } from '../findContext/FindContext.js';
-import './Find.css'
 
 
 const Find = ({posts, comments, navigate}) => {

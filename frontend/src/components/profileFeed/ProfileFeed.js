@@ -22,7 +22,7 @@ const ProfileFeed = ({ navigate }) => {
         })
 
     } // TODO redirect to login page if token exists
-  }, [token])
+  }, [])
 
 
   const logout = () => {

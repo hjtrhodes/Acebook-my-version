@@ -4,7 +4,7 @@ const PostSchema = new mongoose.Schema({
   message: String,
   image: String, // Store the base64-encoded
   date: { type: Date, default: Date.now },
-  likes: { type: Number, default: 0 },
+  likes: { type: [String], default: [] },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref:'User',
@@ -22,7 +22,8 @@ const PostSchema = new mongoose.Schema({
     ref: "User",
     required: true,
     },
-    displayName: String,
+    firstName: String,
+    lastName: String,
   }
   ]
 });

@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import { FindContext } from '../findContext/FindContext.js';
-import './Result.css'
 
 
 const Result = () => {

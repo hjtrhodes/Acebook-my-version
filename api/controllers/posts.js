@@ -88,7 +88,8 @@ const PostsController = {
           $push: {
             comments: {
               comment_message: newComment,
-              displayName: activeUser.displayName, 
+              firstName: activeUser.firstName,
+              lastName: activeUser.lastName, 
               commenter: req.user_id
             },
           },
@@ -102,7 +103,7 @@ const PostsController = {
             console.log('Comment added successfully');
             const token = TokenGenerator.jsonwebtoken(req.user_id);
             updatedPost.comments.forEach(comment => {
-              comment.commenter = comment.displayName;
+              comment.commenter = comment.firstName, comment.lastName;
             });
             console.log(updatedPost);
             res.status(201).json({ message: 'Comment added successfully', token: token, updatedPost });
@@ -115,47 +116,43 @@ const PostsController = {
     }
   },
 
-  Likes: (req, res) => {
-    const newLike = req.body.likes;
-
-    Post.findOneAndUpdate(
-      { _id: req.params.id }, 
-      { $inc: { likes: newLike } }, 
-      { new: true }, 
-      (err, updatedPost) => {
-        if (err) {
-          console.error('Like not added:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-        } else {
-          const token = TokenGenerator.jsonwebtoken(req.user_id)
-          res.status(201).json({ message: 'Like added successfully', token: token, updatedPost });
-        }
-      }
-    );
-  },
-
-
-GetLikes: async (req, res) => {
+  AddOrRemoveUserIDFromPostLikesArray: async (req, res) => {
+    const postId = req.params.id;
+    const userId = req.body.userId;
+    
     try {
-        const postId = req.params.id;
+        // Find the post by ID
         const post = await Post.findById(postId);
-
+      
         if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
+            return res.status(404).json({ message: "Post not found" });
         }
-
-        const likes = post.likes;
-        const token = TokenGenerator.jsonwebtoken(req.user_id);
-        res.status(200).json({ likes, token });
+      
+        // Check if the user has already liked the post
+        const likedByUserIndex = post.likes.indexOf(userId);
+        if (likedByUserIndex === -1) {
+            // If not found, add the user ID to the likedByUser array
+            post.likes.push(userId);
+        } else {
+            // If found, remove the user ID from the likedByUser array
+            post.likes.splice(likedByUserIndex, 1);
+        }
+        // Save the updated post
+        const updatedPost = await post.save();
+      
+        // Return the appropriate response
+        const message = likedByUserIndex === -1 ? true : false;
+        const likes = post.likes.length;
+      
+        res.status(201).json({ message, updatedPost, likes });
     } catch (err) {
-        console.error('Error retrieving post likes:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
+        console.error("Error updating likedByUser:", err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-  }
+},
 
 
+  
 };
-
-
-
-module.exports = PostsController;
+  
+  module.exports = PostsController;

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import './Post.css';
+import { useEffect, useState } from 'react';
 import LikeButton from '../likeButton/likeButton';
 import ProfileImageThumbnail from '../profileImageThumbnail/ProfileImageThumbnail';
 import baseUrl from '../../util/baseUrl';
 import { formatDistanceToNow } from 'date-fns';
+import { FaRegComment } from "react-icons/fa";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+
 
 const Post = ({ post }) => {
   const token = window.localStorage.getItem('token');
@@ -11,6 +13,7 @@ const Post = ({ post }) => {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments || []);
   const [isContentVisible, setIsContentVisible] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     if (token) {
@@ -29,6 +32,10 @@ const Post = ({ post }) => {
     }
   }, []);
 
+  const updateLikeCount = (newCount) => {
+    setLikeCount(newCount);
+  };
+
   const handleCommentChange = (e) => {
     setComment(e.target.value);
   };
@@ -42,7 +49,8 @@ const Post = ({ post }) => {
         {
           comment_message: comment,
           date: Date.now(),
-          displayName: author.displayName ? author.displayName : 'Loading...',
+          firstName: author.firstName ? author.firstName : 'Loading...',
+          lastName: author.lastName ? author.lastName : 'Loading...',
         },
       ]);
       setComment('');
@@ -70,71 +78,109 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className='postcontainer' data-cy='post'>
-      <div data-cy='author-info' className='author-info'>
+    <>
+    <div className='postcontainer rounded-lg shadow-lg bg-white mb-3 border' data-cy='post'>
+      <div data-cy='author-info' className='author-info mb-3'>
         {author ? (
           <>
-            <div className='authorline'>
-            <span className='authorlinetext'>
+            <div className='authorline flex items-center p-4'>
               <ProfileImageThumbnail user={author} />
-              </span>
-              {`${author.displayName}`}
+              <div className="flex flex-col">
+                <span className='authorlinetext'>{author.firstName} {author.lastName}</span>
+                <small className='smallText text-gray-400 hover:underline'>{formatDistanceToNow(new Date(post.date), { addSuffix: true })}</small>
+              </div>
             </div>
+            <div className='pl-4 pb-2'>{post.message}</div>
           </>
         ) : (
           'Loading...'
         )}
-      </div>
-
-      <div className='postcontentandlikebutton'>
-        <article data-cy='post' key={post._id}>
-          <div className='post'>
+        <div className="w-full h-px bg-gray-300"></div> {/* Line separator */}
+        <article key={post._id}>
           {post.image && (
-            <img src={`data:image/png;base64, ${post.image}`} alt='Post' />
+            <img src={`data:image/png;base64, ${post.image}`} alt='Post' className='flex justify-center w-full' />
             )}
-            <br />
-            <div>{post.message}</div>
-            <small className='smallText'>{formatDistanceToNow(new Date(post.date), { addSuffix: true })}</small>
-          </div>
         </article>
-        <LikeButton post_id={ post._id }/>
-      </div>
+        </div>
 
-      <div className='comments'>
-        <button className='comment-button' onClick={toggleContent}>
-          {isContentVisible ? `Hide Comments` : `${comments.length} comments`}
-        </button>
-        {isContentVisible && (
-          <div>
-            <div className='comments-list'>
-              {comments.map((comment, index) => (
-                <div key={index} className='comment'>
-                  <span className='comment-message'>{comment.comment_message}</span>
-                  <br />
-                  <span className='comment-info'>
-                    {comment.displayName} - {formatDistanceToNow(new Date(comment.date), { addSuffix: true })}
-                  </span>
-                </div>
-              ))}
-            </div>
 
-            <form onSubmit={handleSubmitComment} className='comment-form'>
-              <input
-                type='text'
-                value={comment}
-                onChange={handleCommentChange}
-                placeholder='Add a comment...'
-                className='comment-input'
-              />
-              <button className='comment-button' type='submit'>
-                Add Comment
-              </button>
-            </form>
+        <div className='likeamountandcommentsamount flex justify-center w-full text-gray-400 mb-2'>
+          <div className="w-1/2 flex justify-center items-center hover:underline">
+            <p>{likeCount} {likeCount === 1 ? 'like' : 'likes'}</p>
           </div>
-        )}
-      </div>
+          <div className="w-1/2 flex justify-center items-center hover:underline">
+            <button className='comment-button' onClick={toggleContent}>
+              {isContentVisible ? (
+                <p className='text-gray-400 hover:underline cursor-pointer'>{comments.length} comments</p>
+              ) : (
+                <p className='text-gray-400 hover:underline cursor-pointer'>{comments.length} comments</p>
+              )}
+            </button>
+          </div>
+        </div>
+      
+      <div className="w-full h-px bg-gray-300"></div> {/* Line separator */}
+      
+      <div className='comments flex items-center justify-center w-full mt-2 mb-2'>
+  <div className="w-1/2 flex items-center justify-center">
+    <LikeButton postId={post._id} updateLikeCount={updateLikeCount} />
+  </div>
+  
+  <div className="w-1/2 flex items-center justify-center">
+  <button
+    className='comment-button hover:-translate-y-1 w-full rounded-full p-1 mb-1'
+    onClick={toggleContent}
+  >
+    {isContentVisible ? (
+      <span className="flex items-center text-gray-400 justify-center">
+        <FaRegComment size={30} className="mr-2" />
+        <span className="font-bold">Comment</span>
+      </span>
+    ) : (
+      <span className="flex items-center text-gray-400 justify-center">
+        <FaRegComment size={30} className="mr-2" />
+        <span className="font-bold">Comment</span>
+      </span>
+    )}
+  </button>
+  </div>
+  </div>
+
+  {isContentVisible && (
+  <div className='comments-list p-2'>
+    <div className="w-full flex-col mb-2">
+      {comments.map((comment, index) => (
+        <div key={index} className='comment-container mb-2'>
+          <div className="comment-content w-1/2 bg-gray-100 rounded-lg p-2">
+            <span className='comment-user font-bold text-sm'>{comment.firstName} {comment.lastName}</span>
+            <p className='comment-message text-sm'>{comment.comment_message}</p>
+          </div>
+          <span className='comment-date text-gray-500 ml-2 text-xs'>{formatDistanceToNow(new Date(comment.date), { addSuffix: true })}</span>
+        </div>
+      ))}
     </div>
+
+    <form onSubmit={handleSubmitComment} className='comment-form flex justify-center'>
+      <div className="relative w-full">
+        <input
+          type='text'
+          value={comment}
+          onChange={handleCommentChange}
+          placeholder='Write a comment...'
+          className='new-post-message border border-gray-300 rounded-xl p-2 resize-none bg-gray-100 w-full mb-4 pr-10' // Add right padding to accommodate the button
+        />
+        <button className='absolute right-1 top-0 bottom-4 bg-transparent text-gray-600 px-2 py-1 rounded cursor-pointer' type='submit'>
+          <MdKeyboardDoubleArrowRight />
+        </button>
+      </div>
+    </form>
+  </div>
+)}
+
+    </div>
+    </>
   );
 };
 
 export default Post;
+

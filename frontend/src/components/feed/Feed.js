@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import NavBar from '../navBar/NavBar';
 import NewPost from '../newPost/NewPost'
@@ -8,32 +8,45 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
-  useEffect(() => {
-    if(token) {
-      fetch(`${baseUrl}/posts`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(response => response.json())
-        .then(async data => {
-          window.localStorage.setItem("token", data.token)
-          setToken(window.localStorage.getItem("token"))
-
+  // Define fetchPosts function
+  const fetchPosts = async () => {
+    try {
+      if (token) {
+        const response = await fetch(`${baseUrl}/posts`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          window.localStorage.setItem("token", data.token);
+          setToken(data.token); // Update token only if different
           setPosts(data.posts);
-        })
+        } else {
+          // Handle non-200 response
+        }
+      } else {
+        // Handle case where token is not available
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      // Handle fetch error
+    }
+  };
 
-    } // TODO redirect to login page if token exists
-  }, [token])
-  
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   if(token) {
     return (
       <>
       <NavBar posts={posts} navigate={navigate} />
       
-      <div className='main-container bg-gray-100 pt-4'>
-        <div className='w-1/2 mx-auto'>
-            <NewPost />
+      <div className='main-container bg-gray-100 pt-4 z-0'>
+        <div className='w-full sm:w-1/3 mx-auto z-0'>
+            {/* Pass fetchPosts to the NewPost component */}
+            <NewPost fetchPosts={fetchPosts}/>
           <div id='feed' role="feed">
             {posts
               .slice()
@@ -52,4 +65,3 @@ const Feed = ({ navigate }) => {
 }
 
 export default Feed;
-

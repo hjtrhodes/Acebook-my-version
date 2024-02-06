@@ -13,8 +13,10 @@ import { useNavigate, Routes, Route } from "react-router-dom";
 import { FindContext } from '../findContext/FindContext.js';
 import {useState} from 'react';
 import Result from '../result/Result';
+import Modal from 'react-modal';
 
 
+Modal.setAppElement('#root');
 
 const App = () => {
   const [searchResults, setSearchResults] = useState([]);

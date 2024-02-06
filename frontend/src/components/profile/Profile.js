@@ -3,7 +3,6 @@ import NavBar from '../navBar/NavBar'
 import defaultProfile from '../../assets/defaultProfile.png';
 import ProfileFeed from '../profileFeed/ProfileFeed';
 import NewPost from '../newPost/NewPost';
-import './Profile.css';
 import baseUrl from '../../util/baseUrl';
 
 const Profile = ({ navigate }) => {

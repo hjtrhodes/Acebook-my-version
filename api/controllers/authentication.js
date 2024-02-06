@@ -19,7 +19,7 @@ const AuthenticationController = {
         console.log("token");
         console.log(token);
 
-        res.status(201).json({ token: token, displayName: user.displayName, message: "OK" });
+        res.status(201).json({ token: token, userId: user._id, firstName: user.firstName, lastName: user.lastName, message: "OK" });
       }
     });
   }
