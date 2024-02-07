@@ -13,7 +13,39 @@ const Post = ({ post }) => {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments || []);
   const [isContentVisible, setIsContentVisible] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+
+  const [likesState, setLikesState] = useState(false);
+  const [noOfLikes, setNoOfLikes] = useState(0);
+
+  const getLikesAmountandUserLiked = async () => {
+      try {
+          const userId = window.localStorage.getItem("userId")
+          const token = window.localStorage.getItem("token");
+
+          const response = await fetch(`${baseUrl}/posts/${post._id}/${userId}/likes`, {
+              method: 'get',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+              },
+          });
+
+          if (response.ok) {
+              const responseData = await response.json();
+              setNoOfLikes(responseData.likes);
+              setLikesState(responseData.likedByUser);
+          } else {
+              console.error('Failed to get likes amount and liked status');
+          }
+      } catch (error) {
+          console.error('Error in fetching or parsing data:', error);
+      }
+  };
+
+  useEffect(() => {
+      getLikesAmountandUserLiked();
+  }, [noOfLikes, likesState]);
+
 
   useEffect(() => {
     if (token) {
@@ -31,10 +63,6 @@ const Post = ({ post }) => {
       console.log('No token set (in Post component)');
     }
   }, []);
-
-  const updateLikeCount = (newCount) => {
-    setLikeCount(newCount);
-  };
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -106,7 +134,7 @@ const Post = ({ post }) => {
 
         <div className='likeamountandcommentsamount flex justify-center w-full text-gray-400 mb-2'>
           <div className="w-1/2 flex justify-center items-center hover:underline">
-            <p>{likeCount} {likeCount === 1 ? 'like' : 'likes'}</p>
+            <p>{noOfLikes} {noOfLikes === 1 ? 'like' : 'likes'}</p>
           </div>
           <div className="w-1/2 flex justify-center items-center hover:underline">
             <button className='comment-button' onClick={toggleContent}>
@@ -123,7 +151,7 @@ const Post = ({ post }) => {
       
       <div className='comments flex items-center justify-center w-full mt-2 mb-2'>
   <div className="w-1/2 flex items-center justify-center">
-    <LikeButton postId={post._id} updateLikeCount={updateLikeCount} />
+    <LikeButton getLikesAmountandUserLiked={getLikesAmountandUserLiked} likesState={likesState} postId={post._id}/>
   </div>
   
   <div className="w-1/2 flex items-center justify-center">

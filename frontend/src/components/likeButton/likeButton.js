@@ -1,11 +1,9 @@
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
-import { useState } from 'react';
 import baseUrl from '../../util/baseUrl';
 
 const LikeButton = (props) => {
-    const [likesState, setLikesState] = useState("");
 
-    const checkIfUserHasLikedPost = async () => {
+    const UpdateLikeOrUnlike = async () => {
         try {
             const userId = window.localStorage.getItem("userId");
             const token = window.localStorage.getItem("token");
@@ -20,18 +18,14 @@ const LikeButton = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
-                    'userId': userId,
                 },
                 body: JSON.stringify({ 
-                    imageId: props.postId,
                     userId: userId 
                 }),
             });
 
             if (response.ok) {
-                const responseData = await response.json();
-                props.updateLikeCount(responseData.likes);
-                setLikesState(responseData.message);
+                props.getLikesAmountandUserLiked();
             } else {
                 console.error('Failed to access userID array');
             }
@@ -42,7 +36,8 @@ const LikeButton = (props) => {
 
     const handleSubmitLikes = async (e) => {
         e.preventDefault();
-        checkIfUserHasLikedPost();
+        UpdateLikeOrUnlike();
+        props.getLikesAmountandUserLiked();
     };
 
     return (
@@ -54,8 +49,8 @@ const LikeButton = (props) => {
                     onClick={handleSubmitLikes}
                 >
                     <span className="flex items-center text-gray-400">
-                        {likesState ? <AiFillLike size={30} className="mr-1" style={{ color: 'blue' }} /> : <AiOutlineLike size={30} className="mr-1" />}
-                        <span className={`font-bold ${likesState ? 'text-blue-700' : ''}`}>Like</span>
+                        {props.likesState ? <AiFillLike size={30} className="mr-1" style={{ color: 'blue' }} /> : <AiOutlineLike size={30} className="mr-1" />}
+                        <span className={`font-bold ${props.likesState  ? 'text-blue-700' : ''}`}>Like</span>
                     </span>
                 </button>
             </form>

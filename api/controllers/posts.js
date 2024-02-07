@@ -105,7 +105,6 @@ const PostsController = {
             updatedPost.comments.forEach(comment => {
               comment.commenter = comment.firstName, comment.lastName;
             });
-            console.log(updatedPost);
             res.status(201).json({ message: 'Comment added successfully', token: token, updatedPost });
           }
         }
@@ -142,17 +141,48 @@ const PostsController = {
       
         // Return the appropriate response
         const message = likedByUserIndex === -1 ? true : false;
-        const likes = post.likes.length;
       
-        res.status(201).json({ message, updatedPost, likes });
+        res.status(201).json({ message, updatedPost });
     } catch (err) {
         console.error("Error updating likedByUser:", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 },
 
+GetLikes: async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+    
+    // Retrieve the post with the given postId
+    const post = await Post.findById(postId);
 
-  
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Check if the userId is in the likes array of the post
+    const likedByUserIndex = post.likes.indexOf(userId);
+    let likedByUser = false; // Initialize likedByUser to false
+    
+    if (likedByUserIndex !== -1) {
+      likedByUser = true; // If found, set likedByUser to true
+    }
+
+    // Get the total number of likes
+    const likes = post.likes.length;
+
+    // Return the number of likes and whether the user has liked the post
+    res.status(200).json({ likes, likedByUser });
+
+  } catch (err) {
+    console.error("Error retrieving post likes:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+},
+
+
 };
   
   module.exports = PostsController;
