@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Acebook from '../../assets/Acebook.png';
 import baseUrl from '../../util/baseUrl';
 
@@ -6,6 +6,8 @@ const LogInForm = ({ navigate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const toggleMessage = () => {
     setShowMessage(!showMessage);
@@ -15,16 +17,34 @@ const LogInForm = ({ navigate }) => {
     navigate(path);
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let response = await fetch( `${baseUrl}/tokens`, {
+    // Input validation
+    if (!email.includes("@")) {
+      setEmailError("Email must contain @ symbol");
+      return;
+    } else {
+      setEmailError("");
+    }
+
+    if (email === "" || password === "") {
+      setPasswordError("Email or Password field cannot be empty");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
+    // Proceed with the login request
+    let response = await fetch(`${baseUrl}/tokens`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email: email, password: password })
     });
+
     if (response.status === 201) {
       let data = await response.json();
       window.localStorage.setItem("token", data.token);
@@ -36,6 +56,7 @@ const LogInForm = ({ navigate }) => {
       navigate('/login');
     }
   }
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
@@ -50,9 +71,11 @@ const LogInForm = ({ navigate }) => {
     <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen bg-transparent transition-all pb-20 md:pb-0'>
       <img className='p-20 bg-transparent border-0 md:w-1/2' src={Acebook} alt="logo" />
       <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-5 rounded-lg shadow-lg w-96 h-auto md:w-80'>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
-        <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' role='submit-button' id='submit' type="submit" value="Log in" />
+          <input placeholder='Email' id="email" type='text' value={email} onChange={handleEmailChange} className='mb-1 px-4 py-2 rounded border border-gray-300' />
+          {emailError && <p className="text-red-500 text-xs p-1">{emailError}</p>}
+          <input placeholder='Password' id="password" type='password' value={password} onChange={handlePasswordChange} className='mb-1 px-4 py-2 rounded border border-gray-300' />
+          {passwordError && <p className="text-red-500 text-xs p-1">{passwordError}</p>}
+          <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' role='submit-button' id='submit' type="submit" value="Log in" />
           <div className="grey-line border-t border-gray-300 my-4">
           </div>
           <div className="flex justify-center">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Acebook from '../../assets/Acebook.png';
 import baseUrl from '../../util/baseUrl';
 
@@ -10,6 +10,7 @@ const SignUpForm = ({ navigate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+  const [error, setError] = useState("");
 
   const toggleMessage = () => {
     setShowMessage(!showMessage);
@@ -22,22 +23,26 @@ const SignUpForm = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let response = await fetch( `${baseUrl}/users`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, password: password })
-    });
+    // Send signup request
+    try {
+      const response = await fetch(`${baseUrl}/users`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
 
-    if (response.status === 201) {
-      // GOOD NEWS.
-      navigate('/login');
-    } else {
-      // BAD NEWS.
-      navigate('/signup');
+      if (response.status === 201) {
+        navigate('/login');
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
     }
-  }
+  };
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value)
@@ -64,6 +69,7 @@ const SignUpForm = ({ navigate }) => {
         <input placeholder='Last Name' id="lastName" type='text' value={ lastName } onChange={handleLastNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Email Address' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
+        {error && <p className="text-red-500 text-xs pb-4">{error}</p>}
         <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' id='sign-up-button' type="submit" value="Sign Up" />
         <div className="grey-line border-t border-gray-300 my-4">
         </div>
