@@ -7,26 +7,15 @@ const PostSchema = new mongoose.Schema({
   likes: { type: [String], default: [] },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'User',
-    required: true
-  },
-  comments: [
-    {
-    comment_message: String,
-  date: {
-    type: Date,
-    default: Date.now,
-    },
-  commenter: {
-    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-    },
-    firstName: String,
-    lastName: String,
-  }
-  ]
+  },
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  }],
 });
+
 
 const Post = mongoose.model("Post", PostSchema);
 

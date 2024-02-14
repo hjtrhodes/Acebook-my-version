@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer'); 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const UsersController = require("../controllers/users");
 
 router.post("/", UsersController.Create);
-router.get("/user", UsersController.FindSingleUserById);
-router.get("/display-name", UsersController.FindSingleDisplayNameById);
+router.get("/userProfile", UsersController.FindSingleUserById);
 router.get("/:id", UsersController.IndexById);
 router.get("/", UsersController.GetAllUsers);
-
-  // NEED TO RETURN TO THIS (TODO)
-  // router.get("/users", UsersController.FindAll);
+router.put("/profileImage", upload.single('image'), UsersController.AddProfileImage);
 
 module.exports = router;

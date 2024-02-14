@@ -1,13 +1,15 @@
 import { IdentificationIcon, ExclamationCircleIcon, HomeIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import baseUrl from '../../../../util/baseUrl';
+import { RxAvatar } from "react-icons/rx";
 
 const User = () => {
-  const [firstName, setFirstName] = useState(localStorage.getItem("firstName"));
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768); // State to track screen size
   const navigate = useNavigate();
   const menuRef = useRef<HTMLUListElement>(null); // Ref for the menu
+  const [profilePic, setProfilePic] = useState(""); // State to control menu visibility
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,6 +63,44 @@ const User = () => {
     }
   };
 
+  const getLoggedInUserProfilePic = async () => {
+    try {
+        const token = window.localStorage.getItem("token");
+        if (!token) {
+            console.log("Token not available. Unable to retrieve profile picture.");
+            return;
+        }
+
+        const response = await fetch(`${baseUrl}/users/userProfile`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const newToken = data.token;
+            if (newToken) {
+                window.localStorage.setItem("token", newToken);
+            }
+            const profileImage = data.user.profileImage;
+            setProfilePic(profileImage);
+        } else {
+            console.log("Failed to retrieve profile picture:", response.status);
+            // Handle non-200 response
+        }
+    } catch (error) {
+        console.error('Error fetching profile picture');
+        // Handle fetch error
+    }
+};
+
+useEffect(() => {
+  getLoggedInUserProfilePic();
+}, []);
+
+
   const items = [
     {
       title: "Home",
@@ -83,10 +123,10 @@ const User = () => {
   ];
 
   return (
+    <>
     <div className="relative z-10" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800 z-10" onClick={toggleMenu}>
+      <div className="flex items-center cursor-pointer w-fit z-10" onClick={toggleMenu}>
         <Bars3Icon className="my-auto ml-3 rounded-full w-7 h-7" />
-        <p className="mr-3 font-bold text-gray-800 dark:text-gray-200">{firstName}</p>
       </div>
       <ul ref={menuRef} className={`absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 ${isMenuOpen ? 'flex' : 'hidden'} flex-col ${isLargeScreen ? '-left-[10em]' : '-right-[8em]'} rounded-xl`}>
         {items.map((item) => (
@@ -109,6 +149,18 @@ const User = () => {
         ))}
       </ul>
     </div>
+          <button className='profilePic p-2' onClick={() => urlTo('/profile')}>
+          {profilePic ? (
+            <img
+            src={`data:image/png;base64, ${profilePic}`}
+            alt='ProfilePic'
+            className='w-12 h-12 rounded-full cursor-pointer mr-2 border border-gray-100'
+            />
+            ) : (
+              <RxAvatar size={40} className="mr-2 border border-gray-100" />
+              )}
+    </button>
+    </>
   );
 };
 

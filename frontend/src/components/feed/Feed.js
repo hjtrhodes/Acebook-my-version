@@ -13,6 +13,7 @@ const Feed = ({ navigate }) => {
     try {
       if (token) {
         const response = await fetch(`${baseUrl}/posts`, {
+          method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -42,7 +43,6 @@ const Feed = ({ navigate }) => {
     return (
       <>
       <NavBar posts={posts} navigate={navigate} />
-      
       <div className='main-container bg-gray-100 pt-4 z-0'>
         <div className='w-full sm:w-1/3 mx-auto z-0'>
             {/* Pass fetchPosts to the NewPost component */}

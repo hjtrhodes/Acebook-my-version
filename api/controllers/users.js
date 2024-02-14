@@ -63,7 +63,7 @@ const UsersController = {
         
   FindSingleUserById: (req, res) => {
     const userId = req.user_id; 
-    User.findById(userId).select('firstName').exec((err, user) => {
+    User.findById(userId).exec((err, user) => {
       if (err) {
         // Handle error
         res.status(500).json({ error: 'Internal Server Error' });
@@ -73,31 +73,11 @@ const UsersController = {
       } else {
         // User found, send back the firstName and lastName
         const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ token: token, firstName: user.firstName , lastName: user.lastName});
+        res.status(200).json({ message: "OK", token: token, user: user });
       }
     });
   },
-  
-  // This function returns a *firstName and lastName*, not a user object,
-  // so I've renamed it
-  // - Perran
-  FindSingleDisplayNameById: (req, res) => {
-    const userId = req.user_id; 
-    User.findById(userId).select('firstName').exec((err, user) => {
-      if (err) {
-        // Handle error
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else if (!user) {
-        // Handle case where user is not found
-        res.status(404).json({ error: 'User not found' });
-      } else {
-        // User found, send back the firstName and lastName
-        const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ token: token, firstName: user.firstName , lastName: user.lastName });
-      }
-    });
-  },
-  
+
   IndexById: (req, res) => {
     const userId = req.params.id;
     User.findById(userId).exec((err, user) => {
@@ -111,7 +91,47 @@ const UsersController = {
         res.status(200).json({ message: "OK", user: user, token: token })
       }
     });
+  },
+
+AddProfileImage: async (req, res) => {
+  try {
+    // Retrieve user ID from the request
+    const userId = req.user_id;
+
+    // Retrieve image buffer from the request file
+    const imageBuffer = req.file ? req.file.buffer : null;
+
+    // Convert image buffer to base64-encoded string
+    let imageUrl = null;
+    if (imageBuffer) {
+      const base64Image = imageBuffer.toString('base64');
+      imageUrl = base64Image;
+    }
+
+    // Find the user by ID
+    let user = await User.findById(userId);
+
+    // Update the profileImage property based on whether it already exists or not
+    if (user.profileImage) {
+      // If profile image exists, update it
+      user = await User.findByIdAndUpdate(userId, { profileImage: imageUrl }, { new: true });
+    } else {
+      // If profile image doesn't exist, add it
+      user = await User.findByIdAndUpdate(userId, { $set: { profileImage: imageUrl } }, { new: true });
+    }
+
+    // Generate a new JWT token for the user
+    const token = TokenGenerator.jsonwebtoken(userId);
+
+    // Respond with success message and token
+    res.status(200).json({ message: 'Profile image added successfully', token });
+  } catch (error) {
+    console.error('Error adding profile image:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
+},
+
+  
 };
 
 module.exports = UsersController;

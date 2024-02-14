@@ -44,11 +44,11 @@ const LikeButton = (props) => {
         <>
             <form onSubmit={handleSubmitLikes}>
                 <button
-                    className={`likeButton transform hover:-translate-y-1 w-full rounded-full p-1 mb-1`}
+                    className={`likeButton transform w-full rounded-full pt-1`}
                     type='submit'
                     onClick={handleSubmitLikes}
                 >
-                    <span className="flex items-center text-gray-400">
+                    <span className="flex items-center justify-center text-gray-400">
                         {props.likesState ? <AiFillLike size={30} className="mr-1" style={{ color: 'blue' }} /> : <AiOutlineLike size={30} className="mr-1" />}
                         <span className={`font-bold ${props.likesState  ? 'text-blue-700' : ''}`}>Like</span>
                     </span>

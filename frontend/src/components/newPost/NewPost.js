@@ -13,10 +13,11 @@ const NewPost = ({ fetchPosts }) => {
     const handleSubmit = async (event) => { 
         event.preventDefault(); 
     
+        
         const formData = new FormData();
         formData.append('message', message);
         formData.append('image', image);
-    
+        
         try {
             const response = await fetch(`${baseUrl}/posts`, {
                 method: 'POST',
@@ -25,7 +26,7 @@ const NewPost = ({ fetchPosts }) => {
                 },
                 body: formData,
             });
-    
+            
             if (response.ok) { 
                 setMessage("");
                 setImage(null);
@@ -42,24 +43,31 @@ const NewPost = ({ fetchPosts }) => {
     };
     
     const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
+        const selectedFile = event.target.files[0];
+        setImage(selectedFile);
+        setShowPostButton(!!selectedFile || !!message.trim()); // Show the post button if there's an image or text
     };
     
+    const handleClearImage = () => {
+        setImage(null);
+        setShowPostButton(false);
+        };
+
     const handleMessageChange = (event) => {
         const inputValue = event.target.value;
         setMessage(inputValue);
         setShowPostButton(!!inputValue.trim()); // Show the post button if there's text
     };
     
-
+    
     const handleTextAreaFocus = () => {
         setIsFocused(true);
     };
-
+    
     const handleTextAreaBlur = () => {
         setIsFocused(false);
     };
-
+    
     return(
         <div className="rounded-lg shadow-lg p-4 bg-white mb-3 border z-0">
                         {image && (
@@ -95,6 +103,11 @@ const NewPost = ({ fetchPosts }) => {
                     >
                         Post
                     </button>
+                )}
+                {image && (
+                        <button onClick={handleClearImage} className="w-full mb-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+                            Clear Image
+                        </button>
                 )}
                 <div className="w-full h-px bg-gray-300 mb-4"></div> {/* Line separator */}
                 <input

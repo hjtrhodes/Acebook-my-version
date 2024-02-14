@@ -4,18 +4,31 @@ const TokenGenerator = require("../lib/token_generator");
 
 const PostsController = {
 
-  Index: (req, res) => {
-    Post.find((err, posts) => {
-      if (err) {
-        throw err;
-      }
-      const token = TokenGenerator.jsonwebtoken(req.user_id);
-      //console.log(posts);
-      res.status(200).json({ posts: posts, token: token });
-    });
+  getAllPosts: (req, res) => {
+    Post.find()
+      .populate('author') // Populate the author field
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'commenter parentComment children',
+          populate: {
+            path: 'commenter',
+            model: 'User'
+          }
+        }
+      }) // Populate the comments field and its nested fields
+      .exec((err, posts) => {
+        if (err) {
+          throw err;
+        }
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(200).json({ posts: posts, token: token });
+      });
   },
+  
 
-  IndexByAuthorId: (req, res) => {
+
+  getAllPostsByAuthorId: (req, res) => {
     const author = req.params.authorId;
     Post.find({ author: author }).exec((err, posts) => {
       if (err) {
@@ -27,22 +40,30 @@ const PostsController = {
   },
 
   IndexLoggedInUser: (req, res) => {
-    // req.user_id is ALWAYS the id of the *logged in user*.
-    // Therefore this function ALWAYS finds the posts
-    // of the *logged in user*.
-    // Therefore I have renamed this function
-    // from `IndexByUserId` to `IndexLoggedInUser`.
     const author = req.user_id;
-    Post.find({ author: author }, (err, posts) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      const token = TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(200).json({ posts: posts, token: token });
-    });
-  },
+    Post.find({ author: author })
+        .populate('author') // Populate the author field
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'commenter parentComment children',
+                populate: {
+                    path: 'commenter',
+                    model: 'User'
+                }
+            }
+        }) // Populate the comments
+        .exec((err, posts) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            const token = TokenGenerator.jsonwebtoken(req.user_id);
+            res.status(200).json({ posts: posts, token: token });
+        });
+},
 
-  Create: (req, res) => {
+
+  CreatePostandAddImage: (req, res) => {
     try {
       const author = req.user_id; 
       const { message } = req.body;
@@ -70,50 +91,6 @@ const PostsController = {
       res.status(500).json({ error: 'Internal Server Error' });
       };
     },
-
-  Comment: async (req, res) => {
-    console.log("COMMENTING");
-    console.log(req.params.id);
-    const newComment = req.body.comment;
-
-    try {
-      const activeUser = await User.findById(req.user_id);
-      if (!activeUser) {
-        throw new Error("User not found");
-      }
-
-      Post.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $push: {
-            comments: {
-              comment_message: newComment,
-              firstName: activeUser.firstName,
-              lastName: activeUser.lastName, 
-              commenter: req.user_id
-            },
-          },
-        },
-        { new: true },
-        (err, updatedPost) => {
-          if (err) {
-            console.error('Error adding comment:', err);
-            res.status(500).json({ message: 'Internal Server Error' });
-          } else {
-            console.log('Comment added successfully');
-            const token = TokenGenerator.jsonwebtoken(req.user_id);
-            updatedPost.comments.forEach(comment => {
-              comment.commenter = comment.firstName, comment.lastName;
-            });
-            res.status(201).json({ message: 'Comment added successfully', token: token, updatedPost });
-          }
-        }
-      );
-    } catch (error) {
-      console.error("Error fetching user information:", error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  },
 
   AddOrRemoveUserIDFromPostLikesArray: async (req, res) => {
     const postId = req.params.id;
@@ -179,6 +156,25 @@ GetLikes: async (req, res) => {
   } catch (err) {
     console.error("Error retrieving post likes:", err);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+},
+
+  DeletePost: async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+      // Find the post by ID
+      const post = await Post.findById(postId);
+      if (!post) {
+          return res.status(404).json({ error: 'Post not found' });
+      }
+
+      // Delete the post from the database
+      await post.remove();
+      res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting post:', error);
+      res.status(500).json({ error: 'Failed to delete post' });
   }
 },
 
