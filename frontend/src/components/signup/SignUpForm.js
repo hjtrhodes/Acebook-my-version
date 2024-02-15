@@ -59,24 +59,26 @@ const SignUpForm = ({ navigate }) => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
   }
-
-
+  
+  
   return (
     <div className='container flex flex-col md:flex-row md:ml-20 justify-center items-center min-h-screen transition-all pb-20 md:pb-0'>
       <img className='p-20 bg-transparent border-0 md:w-1/2' src={Acebook} alt="logo" />
-      <form onSubmit={handleSubmit} className='text-center flex flex-col bg-white p-5 rounded-lg shadow-lg w-96 h-auto md:w-80'>
+      <div className='bg-white p-5 rounded-lg shadow text-center'>
+      <form onSubmit={handleSubmit} className='text-center flex flex-col w-96 h-auto md:w-80'>
         <input placeholder='First Name' id="firstName" type='text' value={ firstName } onChange={handleFirstNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Last Name' id="lastName" type='text' value={ lastName } onChange={handleLastNameChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Email Address' id="email" type='text' value={ email } onChange={handleEmailChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className='mb-4 px-4 py-2 rounded border border-gray-300' />
         {error && <p className="text-red-500 text-xs pb-4">{error}</p>}
         <input className='submit bg-blue-500 text-white px-4 py-2 rounded font-bold w-full transition duration-300 hover:bg-blue-700 cursor-pointer' id='sign-up-button' type="submit" value="Sign Up" />
-        <div className="grey-line border-t border-gray-300 my-4">
-        </div>
+        <div className="grey-line border-t border-gray-300 my-4"></div>
         <div className="flex justify-center">
         <button className='gotologin-button bg-green-500 text-white px-4 py-2 rounded font-bold transition duration-300 w-1/2 hover:bg-green-700' data-cy="submit-button" onClick={() => urlTo('/login')}>Go to Login</button>
         </div>
+      </form>
 
+      <div className="grey-line border-t border-gray-300 my-4"></div>
         <div className="flex justify-center mt-4">
         <button className="show-message-button bg-red-300 text-white px-4 py-2 text-sm rounded transition duration-300 hover:bg-red-400" onClick={toggleMessage}>
           Signup not working? - Click here
@@ -100,7 +102,7 @@ const SignUpForm = ({ navigate }) => {
         </div>
       )}
 
-      </form>
+      </div>
   </div>
   );
   

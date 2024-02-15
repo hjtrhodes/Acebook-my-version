@@ -30,14 +30,27 @@ const PostsController = {
 
   getAllPostsByAuthorId: (req, res) => {
     const author = req.params.authorId;
-    Post.find({ author: author }).exec((err, posts) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      const token = TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(200).json({ posts: posts, token: token });
-    });
+    Post.find({ author: author })
+      .populate('author') // Populate the author field
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'commenter parentComment children',
+          populate: {
+            path: 'commenter',
+            model: 'User'
+          }
+        }
+      })
+      .exec((err, posts) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(200).json({ posts: posts, token: token });
+      });
   },
+  
 
   IndexLoggedInUser: (req, res) => {
     const author = req.user_id;

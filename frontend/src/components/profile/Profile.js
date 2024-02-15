@@ -12,9 +12,15 @@ const Profile = ({ navigate }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [userObject, setUserObject] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reRender, setReRender] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+
+  const handleRerender = () => {
+    setReRender(prevState => !prevState);
+    console.log('rerender called')
   };
 
   const handleCloseModal = () => {
@@ -27,6 +33,7 @@ const Profile = ({ navigate }) => {
 
   // Fetch User Object using UserID
   useEffect(() => {
+    console.log('Component rerendered');
     const fetchProfileUserData = async () => {
       try {
         const response = await fetch(`${baseUrl}/users/userProfile`, {
@@ -47,7 +54,7 @@ const Profile = ({ navigate }) => {
       }
     };
     fetchProfileUserData();
-  }, [token, selectedImage]);
+  }, [token, selectedImage, reRender]);
 
   // Adding Profile Image Functionality
   const handleImageChange = (event) => {
@@ -115,11 +122,11 @@ const Profile = ({ navigate }) => {
           </span>
         </div>
     </div>
-  <NewPost />
+  <NewPost fetchPosts={handleRerender} />
 <div className='feed'>
 </div>
   </div>
-  <ProfileFeed navigate={navigate}/>
+  <ProfileFeed navigate={navigate} reRender={reRender}/>
 </div>
 
 {/* Modal Component */}

@@ -1,45 +1,46 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import baseUrl from '../../util/baseUrl';
-import { formatDistanceToNow } from 'date-fns';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import Comment from './comment'
+import Comment from './comment';
+import { useCommentContext } from './CommentContext';
 
-const Comments = ({ comment_objects_array, postId }) => {
+const Comments = ({ comment_objects_array, postId, onAddComment, onDeleteComment }) => {
+    const { dispatch } = useCommentContext();
     const token = window.localStorage.getItem('token');
     const [comment_message, setComment_Message] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Manage state of main comments
     const handleCommentChange = (e) => {
         setComment_Message(e.target.value);
     };
 
-    // Manage submission of parent comments
-    const handleSubmitComment = (e) => {
+    const handleSubmitComment = async (e) => {
         e.preventDefault();
         if (comment_message.trim() !== '') {
-            fetch(`${baseUrl}/comments/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ comment_message: comment_message }),
-            })
-                .then(async (response) => {
-                    if (response.ok) {
-                        setComment_Message('');
-                        // Update the token if necessary
-                        let data = await response.json();
-                        window.localStorage.setItem('token', data.token);
-                    } else {
-                        throw new Error('Failed to add comment');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error adding comment:', error);
-                    setErrorMessage('Failed to add comment');
+            try {
+                const response = await fetch(`${baseUrl}/comments/${postId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ comment_message: comment_message }),
                 });
+
+                if (response.ok) {
+                    setComment_Message('');
+                    const data = await response.json();
+                    window.localStorage.setItem('token', data.token);
+                    // Dispatch action to add comment
+                    dispatch({ type: 'ADD_COMMENT', payload: data.newComment });
+                    onAddComment(data.newComment);
+                } else {
+                    throw new Error('Failed to add comment');
+                }
+            } catch (error) {
+                console.error('Error adding comment:', error);
+                setErrorMessage('Failed to add comment');
+            }
         } else {
             console.log('User tried to leave a blank comment');
             setComment_Message('');
@@ -47,9 +48,36 @@ const Comments = ({ comment_objects_array, postId }) => {
         }
     };
 
+    const deleteComment = async (commentId) => {
+        if (window.confirm("Are you sure you want to delete this comment?")) {
+            try {
+                const response = await fetch(`${baseUrl}/comments/${commentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    // Dispatch action to delete comment
+                    dispatch({ type: 'DELETE_COMMENT', payload: commentId });
+                    onDeleteComment(commentId);
+                    console.log("Comment deleted successfully!");
+                } else {
+                    console.error("Failed to delete comment");
+                    alert("An error occurred. Please try again later.");
+                }
+            } catch (error) {
+                console.error("Error in deleting comment:", error);
+                alert("An error occurred. Please try again later.");
+            }
+        }
+    };
+
     return (
         <div>
-            {/* Comments List (each comment has ability to input and submit child comment)*/}
+            {/* Comments List */}
             <div className='comments-list p-2'>
                 <div className="w-full flex-col mb-2">
                     {comment_objects_array
@@ -57,7 +85,7 @@ const Comments = ({ comment_objects_array, postId }) => {
                         .sort((a, b) => new Date(b.date) - new Date(a.date))
                         .map((comment) => (
                             <article key={comment._id}>
-                                <Comment comment={comment} />
+                                <Comment comment={comment} deleteComment={deleteComment} />
                             </article>
                         ))}
                 </div>
@@ -83,5 +111,6 @@ const Comments = ({ comment_objects_array, postId }) => {
 }
 
 export default Comments;
+
 
       

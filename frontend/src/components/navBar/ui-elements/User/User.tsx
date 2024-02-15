@@ -157,7 +157,7 @@ useEffect(() => {
             className='w-12 h-12 rounded-full cursor-pointer mr-2 border border-gray-100'
             />
             ) : (
-              <RxAvatar size={40} className="mr-2 border border-gray-100" />
+              <RxAvatar size={40} className="mr-2" />
               )}
     </button>
     </>

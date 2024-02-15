@@ -7,10 +7,11 @@ import { RxAvatar } from "react-icons/rx";
 import Comments from '../comments/comments';
 
 
-const Post = ({ post }) => {
+const Post = ({ post, setForceRerender }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [likesState, setLikesState] = useState(false);
   const [noOfLikes, setNoOfLikes] = useState(0);
+  const [comments, setComments] = useState(post.comments);
   const userId = window.localStorage.getItem("userId");
 
   const getLikesAmountandUserLiked = async () => {
@@ -60,6 +61,7 @@ const deletePost = async () => {
         if (response.ok) {
           // Handle successful deletion, e.g., remove the post from your data source
           console.log("Post deleted successfully!");
+          setForceRerender();
           // Add logic to update your UI to reflect the deleted post
         } else {
           console.error("Failed to delete post");
@@ -71,6 +73,16 @@ const deletePost = async () => {
       }
     }
   };
+
+    // Function to update comments state when a new comment is added
+    const handleAddComment = (newComment) => {
+      setComments([...comments, newComment]);
+    };
+  
+    // Function to update comments state when a comment is deleted
+    const handleDeleteComment = (deletedCommentId) => {
+      setComments(comments.filter(comment => comment._id !== deletedCommentId));
+    };
 
   return (
 <>
@@ -85,15 +97,20 @@ const deletePost = async () => {
             <div className='authorline flex items-center p-2'>
       
       {/* Profile Image */}
-            {post.author.profileImage ? (
-            <img
-                src={`data:image/png;base64, ${post.author.profileImage}`}
-                alt='ProfilePic'
-                className='w-12 h-12 rounded-full cursor-pointer hover:shadow-md mr-2 border border-gray-100'
-            />
+        {post.author.profileImage ? (
+          <a href={`/posts/user/${post.author._id}`}>
+              <img
+                  src={`data:image/png;base64, ${post.author.profileImage}`}
+                  alt='ProfilePic'
+                  className='w-12 h-12 rounded-full cursor-pointer hover:shadow-md mr-2 border border-gray-100'
+              />
+          </a>
             ) : (
+              <a href={`/posts/user/${post.author._id}`}>
               <RxAvatar size={40} className="mr-2 border border-gray-100" />
+              </a>
             )}
+
 
 
       {/* Author Details */}
@@ -111,7 +128,7 @@ const deletePost = async () => {
             )}
             </div>
           </div>
-          <div className='pl-4 pb-2'>{post.message}</div>
+          <p className='pl-4 pb-2 max-w-[95%]'>{post.message}</p>
           </>
             ) : (
               'Loading...'
@@ -180,14 +197,16 @@ const deletePost = async () => {
         <div className="h-px mr-2 ml-2 bg-gray-300"></div>
 
       {/* Comments Container */}
-        {isContentVisible && (
-          <div className="comments-container w-full pr-1 pl-1 pt-2">
-            <Comments
-              comment_objects_array={post.comments}
-              postId={post._id}
-            />
-          </div>
-        )}
+      {isContentVisible && (
+        <div className="comments-container w-full pr-1 pl-1 pt-2">
+          <Comments
+            comment_objects_array={comments} // Pass updated comments array
+            postId={post._id}
+            onAddComment={handleAddComment} // Pass callback function to add comment
+            onDeleteComment={handleDeleteComment} // Pass callback function to delete comment
+          />
+        </div>
+      )}
         </div>
 
   </>

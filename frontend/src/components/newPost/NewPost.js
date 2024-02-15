@@ -83,7 +83,7 @@ const NewPost = ({ fetchPosts }) => {
                     
             <form
                 className="newpostform flex flex-col items-center justify-center"
-                onSubmit={handleSubmit}
+                onSubmit={(event) => handleSubmit(event)}
                 encType="multipart/form-data"
             >
                 <textarea

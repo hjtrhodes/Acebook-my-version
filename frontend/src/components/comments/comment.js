@@ -2,75 +2,50 @@ import { useEffect, useState } from 'react';
 import baseUrl from '../../util/baseUrl'; // Assuming baseUrl is imported correctly
 import { formatDistanceToNow } from 'date-fns';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { useCommentContext } from './CommentContext';
 
-const Comment = ({ comment }) => {  
+const Comment = ({ comment, deleteComment }) => {  
+    const { comments, dispatch } = useCommentContext();
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('userId');
-    const [childCommentText, setChildCommentText] = useState('');
-    const [showChildComments, setShowChildComments] = useState(false);
-    const [showReplyBox, setShowReplyBox] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    // const [childCommentText, setChildCommentText] = useState('');
+    // const [showChildComments, setShowChildComments] = useState(false);
+    // const [showReplyBox, setShowReplyBox] = useState(false);
 
-    // Manage submission of child comments
-    const handleSubmitChildComment = async (e) => {
-        e.preventDefault();
-        if (childCommentText.trim() !== '') {
-            try {
-                const response = await fetch(`${baseUrl}/comments/${comment._id}/children`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`, // Assuming token is defined
-                    },
-                    body: JSON.stringify({ comment_message: childCommentText }),
-                });
-                if (response.ok) {
-                    // Child comment posted successfully
-                    setChildCommentText('');
-                    setShowReplyBox(false);
-                } else {
-                    throw new Error('Failed to add child comment');
-                }
-            } catch (error) {
-                console.error('Error adding child comment:', error);
-                setErrorMessage('Failed to add child comment');
-            }
-        } else {
-            console.log('User tried to leave a blank comment');
-        }
-    };
+    // // Manage submission of child comments
+    // const handleSubmitChildComment = async (e) => {
+    //     e.preventDefault();
+    //     if (childCommentText.trim() !== '') {
+    //         try {
+    //             const response = await fetch(`${baseUrl}/comments/${comment._id}/children`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${token}`, // Assuming token is defined
+    //                 },
+    //                 body: JSON.stringify({ comment_message: childCommentText }),
+    //             });
+    //             if (response.ok) {
+    //                 // Child comment posted successfully
+    //                 setChildCommentText('');
+    //                 setShowReplyBox(false);
+    //             } else {
+    //                 throw new Error('Failed to add child comment');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error adding child comment:', error);
+    //             setErrorMessage('Failed to add child comment');
+    //         }
+    //     } else {
+    //         console.log('User tried to leave a blank comment');
+    //     }
+    // };
 
-    // Handle change in child comment input
-    const handleChildCommentChange = (e) => {
-        setChildCommentText(e.target.value);
-    };
-
-    // Delete Comment
-    const deleteComment = async () => {
-        if (window.confirm("Are you sure you want to delete this comment?")) {
-          try {
-            const response = await fetch(`${baseUrl}/comments/${comment._id}/${comment.parentComment}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-              },
-            });
-      
-              if (response.ok) {
-                // Handle successful deletion, e.g., remove the post from your data source
-                console.log("Comment deleted successfully!");
-                // Add logic to update your UI to reflect the deleted post
-              } else {
-                console.error("Failed to delete comment");
-                alert("An error occurred. Please try again later.");
-              }
-            } catch (error) {
-              console.error("Error in deleting comment:", error);
-              alert("An error occurred. Please try again later.");
-            }
-          }
-        };
+    // // Handle change in child comment input
+    // const handleChildCommentChange = (e) => {
+    //     setChildCommentText(e.target.value);
+    // };
 
     return (
         <>
@@ -83,26 +58,26 @@ const Comment = ({ comment }) => {
                 <span className='comment-date text-gray-500 ml-2 text-xs'>
                     {formatDistanceToNow(new Date(comment.date), { addSuffix: true })}
                 </span>
-                {/* Button to open reply input box */}
+                {/* Button to open reply input box
                 <button
                     className="reply-button text-xs font-bold text-gray-400 hover:underline cursor-pointer ml-2"
                     onClick={() => setShowReplyBox(!showReplyBox)}
                 >
                     Reply
-                </button>
+                </button> */}
 
             {/* Delete Button */}
             {comment.commenter._id === userId && (
               <span
                 className="text-xs text-blue-400 ml-2 hover:text-blue-600 hover:underline cursor-pointer"
-                onClick={deleteComment}
+                onClick={() => deleteComment(comment._id)}
               >
                 Delete
               </span>
             )}
             </div>
     
-             {/* Reply input box */}
+             {/* Reply input box
              {showReplyBox && (
                 <form onSubmit={handleSubmitChildComment}>
                     <div className="relative w-full">
@@ -136,7 +111,7 @@ const Comment = ({ comment }) => {
                     ))}
                     <button className="reply-button text-sm font-bold text-gray-400 hover:underline cursor-pointer" onClick={() => setShowChildComments(false)}>Hide Replies</button>
                 </div>
-            )}
+            )} */}
 
         </>
     );

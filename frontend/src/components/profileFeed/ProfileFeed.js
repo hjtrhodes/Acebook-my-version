@@ -3,8 +3,13 @@ import Post from '../post/Post'
 import baseUrl from '../../util/baseUrl';
 
 
-const ProfileFeed = ({ navigate }) => {
+const ProfileFeed = ({ navigate, reRender }) => {
     const [posts, setPosts] = useState([]);
+    const [forceRerender, setForceRerender] = useState([]);
+
+    const handleRerender = () => {
+        setForceRerender(prevState => !prevState);
+      };
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
@@ -25,7 +30,7 @@ const ProfileFeed = ({ navigate }) => {
             window.localStorage.setItem("token", data.token);
             setPosts(data.posts);
         });
-    }, []);
+    }, [reRender, forceRerender]);
     
 
         return(
@@ -37,7 +42,7 @@ const ProfileFeed = ({ navigate }) => {
                 .slice()
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((post) => (
-                    <article key={ post._id }><Post post={ post } /></article>  
+                    <article key={ post._id }><Post post={ post } setForceRerender={setForceRerender} /></article>  
                     ))}
                 </div>
             </div>

@@ -5,6 +5,7 @@ import defaultProfile from '../../assets/defaultProfile.png';
 import './UserPublicPage.css'
 import ChronologicalPosts from '../chronologicalPosts/ChronologicalPosts';
 import baseUrl from '../../util/baseUrl';
+import { RxAvatar } from "react-icons/rx";
 
 const UserPublicPage = ({ navigate }) => {
   const { userId } = useParams();
@@ -25,8 +26,6 @@ const UserPublicPage = ({ navigate }) => {
       })
       .then(res => res.json())
       .then(async data => {
-        //window.localStorage.setItem("token", data.token);
-        //setToken(window.localStorage.getItem("token"));
         setUserInfo(data.user);
       })
       .then(() => {
@@ -38,10 +37,6 @@ const UserPublicPage = ({ navigate }) => {
         })
         .then(res => res.json())
         .then(async data => {
-          //window.localStorage.setItem("token", data.token);
-          //setToken(window.localStorage.getItem("token"));
-          console.log("Printing what will be written to postsList");
-          console.log(data.posts);
           setPostsList(data.posts);
         })
         .catch(err => console.error(err));
@@ -56,28 +51,40 @@ const UserPublicPage = ({ navigate }) => {
   if (!token) {
     navigate('/login');
   }
-  return(
+  return (
     <>
-      <NavBar/>
-      <div className="public-page-container">
-        <h2>
-          {
-            userInfo ?
-            `Posts by ${userInfo.displayName}` :
-            "Loading page..."
-          }
-        </h2>
-        <div className="profile-picture">
-          <img src={defaultProfile} alt="Default Profile"/>
+      <NavBar />
+      <div className="main-container bg-gray-100 pt-10 z-0">
+        <div className="profilecontainer w-full sm:w-1/3 mx-auto z-0 bg-gray-100">
+          {userInfo && ( // Conditionally render if userInfo is not null
+            <div className="flex flex-col justify-center items-center h-full">
+              <h2 className="text-3xl font-bold">
+                {userInfo.firstName} {userInfo.lastName}
+              </h2>
+              <div className="profilepic flex">
+                {userInfo.profileImage ? (
+                  <img
+                    src={`data:image/png;base64, ${userInfo.profileImage}`}
+                    alt="ProfilePic"
+                    className="w-20 h-20 rounded-full cursor-pointer hover:shadow-md mr-2 border border-gray-100 mt-2"
+                  />
+                ) : (
+                  <RxAvatar size={40} className="mr-2 border border-gray-100" />
+                )}
+              </div>
+            </div>
+          )}
         </div>
-        {
-          postsList ?
-          <ChronologicalPosts posts={ postsList }/>
-          : <h2>Loading posts...</h2>
-        }
+  
+        {postsList ? (
+          <ChronologicalPosts posts={postsList} />
+        ) : (
+          <h2>Loading posts...</h2>
+        )}
       </div>
     </>
-  )
+  );
+  
 }
 
 export default UserPublicPage;

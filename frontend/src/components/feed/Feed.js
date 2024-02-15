@@ -3,6 +3,7 @@ import Post from '../post/Post'
 import NavBar from '../navBar/NavBar';
 import NewPost from '../newPost/NewPost'
 import baseUrl from '../../util/baseUrl';
+import Find from '../find/Find.js'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
