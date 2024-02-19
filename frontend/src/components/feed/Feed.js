@@ -3,11 +3,12 @@ import Post from '../post/Post'
 import NavBar from '../navBar/NavBar';
 import NewPost from '../newPost/NewPost'
 import baseUrl from '../../util/baseUrl';
-import Find from '../find/Find.js'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [forceRerender, setForceRerender] = useState([]);
+
 
   // Define fetchPosts function
   const fetchPosts = async () => {
@@ -38,7 +39,7 @@ const Feed = ({ navigate }) => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [forceRerender]);
 
   if(token) {
     return (
@@ -53,7 +54,7 @@ const Feed = ({ navigate }) => {
               .slice()
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map((post) => (
-                <article key={post._id}><Post post={post} /></article>
+                <article key={post._id}><Post post={post} setForceRerender={setForceRerender} /></article>
               ))}
           </div>
         </div>

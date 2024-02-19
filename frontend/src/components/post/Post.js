@@ -62,7 +62,6 @@ const deletePost = async () => {
           // Handle successful deletion, e.g., remove the post from your data source
           console.log("Post deleted successfully!");
           setForceRerender();
-          // Add logic to update your UI to reflect the deleted post
         } else {
           console.error("Failed to delete post");
           alert("An error occurred. Please try again later.");
