@@ -2,7 +2,7 @@
 ### (Initially cloned from Makers Acebook Project Seed)
 
 ## Live Deploy
-Click here to see the deployment: [Acebook]([https://baldbible-s8q0.onrender.com/](https://acebook-mo3r.onrender.com/login)
+Click here to see the deployment: [Acebook]([https://acebook-mo3r.onrender.com/login])
 
 ## Functionality Demo
 Click to open on Youtube
