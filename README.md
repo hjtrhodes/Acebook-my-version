@@ -1,6 +1,10 @@
 # ACEBOOK (Initially cloned from Makers Acebook MERN Project Seed)
 
+## Live Deploy
+Click here to see the deployment: [Acebook]([https://baldbible-s8q0.onrender.com/](https://acebook-mo3r.onrender.com/login)
+
 ## Functionality Demo
+Click to open on Youtube
 [![Video](https://img.youtube.com/vi/t2ITyMQkPe0/0.jpg)](https://www.youtube.com/watch?v=t2ITyMQkPe0&t=106s)
 
 This is my cloned version of the project repo to continue development at project completion.
