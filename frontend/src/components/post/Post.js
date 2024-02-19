@@ -158,9 +158,9 @@ const deletePost = async () => {
       <div className="w-1/2 flex justify-center items-center hover:underline">
           <button className='comment-button' onClick={toggleContent}>
             {isContentVisible ? (
-              <p className='text-gray-400 hover:underline cursor-pointer'>{post.comments.length} comments</p>
+              <p className='text-gray-400 hover:underline cursor-pointer'>{comments.length} comments</p>
             ) : (
-              <p className='text-gray-400 hover:underline cursor-pointer'>{post.comments.length} comments</p>
+              <p className='text-gray-400 hover:underline cursor-pointer'>{comments.length} comments</p>
             )}
           </button>
       </div>
