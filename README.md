@@ -12,12 +12,12 @@ This is my cloned version of the project repo to continue development at project
 
 This was my second project at Makers. We worked in a team of 5 developers using an Agile process. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks and further practice version control using GitHub. As a result of this project I developed more confidence with React, understanding the relationships between front and back end and particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack, responsible for our feature in both back and front end and regularly knowledge share at daily standups.
 
-Project Timeline: 14 days to MVP
-Main Language: Javascript
-Additional Language since project completion: Typescript
-Tech Stack: React, Express, Node.js, MongoDB
-Testing: Cypress, Jest
-Other Technologies: TailwindCSS, Multer, PostCSS, Vite, Bcrypt
+- Project Timeline: 14 days to MVP
+- Main Language: Javascript
+- Additional Language since project completion: Typescript
+- Tech Stack: React, Express, Node.js, MongoDB
+- Testing: Cypress, Jest
+- Other Technologies: TailwindCSS, Multer, PostCSS, Vite, Bcrypt
 
 ### Planning: Understanding the Codebase and User Stories
 As we were starting from a seed codebase we spent some time mapping the relationships between components and files to get a better collective understanding of how it was working. 
