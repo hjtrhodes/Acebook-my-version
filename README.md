@@ -19,9 +19,20 @@ Tech Stack: React, Express, Node.js, MongoDB
 Testing: Cypress, Jest
 Other Technologies: TailwindCSS, Multer, PostCSS, Vite, Bcrypt
 
-### Planning: Excalidraw/Figma Wireframes and Componentry
+### Planning: Understanding the Codebase and User Stories
+As we were starting from a seed codebase we spent some time mapping the relationships between components and files to get a better collective understanding of how it was working. 
+
+Initial Diagram:
+![Initial Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/RelationshipDiagram_aoyohj.png "Initial Diagram")
+After more investigation:
+![More Detailed Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/AllComponents_ugqngb.png "More Detailed Diagram")
+Understanding Token Creation
+![Understanding Token Creation](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/TokenGenerator_l7j5ly.png "Understanding Token Creation")
+Then we created User Stories to inform our decison on what MVP would look like
+![User Stories](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/User_Stories_p3xopz.png "User Stories")
 
 ### Agile Working using Trello
+We turned our user stories into tickets and populated the Trello Board
 ![Trello Board](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423331/Demo%20Videos/AcebookTrello_obyoyf.png "Trello Board")
 
 ## Final Acheived MVP Functionality:
