@@ -39,15 +39,44 @@ We turned our user stories into tickets and populated the Trello Board
 ![Trello Board](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423331/Demo%20Videos/AcebookTrello_obyoyf.png "Trello Board")
 
 ## Final Acheived MVP Functionality:
+- Locally Hosted MongoDB Database
+- Login: Must be unique email and correct password
+- Signup: All fields must be completed, email must be correct format, password must be certain length and contain special character
+- Post: User can make a post with text
+- Image Upload: User can add an image to their post - the image is held in the database using Multer
+- Comments: User could add a comment to a post (comment was part of Post component)
+- Likes: User can Like/Unlike a Post
+- Search: User can search for the content of a post
+- Profile Page: User can view their own profile which will diplay only their posts
+- NavBar: Simple navbar navigation
 
 ### My responsibilities:
 
-Project Sprints: 
-I was responsible for the likes functionality, display order on the Feed Page and all styling. I also contributed via pairing to the comments functionality and images upload functionality.
+Project Sprints:
+- Individual responsibilities: Likes, Feed Page display - ensuring it was correctly ordered, all styling
+- Supported others by pair programming on: Comments, Image upload
 
 ## Functionality Added Since Project Completion
 
-
+- Database transferred to CloudDB Atlas
+- Project Deployed on Render.com
+- Password Security: Passwords are bcrypt hashed on signup before being stored in database
+- Comments and Comment are now their own component
+- Comment is a separate backend model, has its own routes and controllers
+- Comment Schema has functionality for nested comments
+- User can delete comments
+- User can delete Posts
+- Refactored Likes functionality to simplify it and make less fetch requests, updated Post Model to contain Likes Array of UserIds
+- Post Schema now contains user and comment objects schemas
+- .populate mongoose method added to backend Post and comment functions
+- Search now displays in a Modal and allows you to search for users, it will autofill users based on text
+- Public Profile Pages - User can view other people profiles which contain only their posts
+- Profile Picture Upload
+- Profile picture now displays on posts and navBar
+- New NavBar
+- Installed TailwindCSS and overhauled all styling, removing and replacing all CSS styling
+- All pages are fully responsive to different screen sizes
+- Conditional Rendering added to comments
 
 ## Challenges/Actions we took to overcome
 
