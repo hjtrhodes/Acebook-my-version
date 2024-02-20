@@ -59,24 +59,24 @@ Project Sprints:
 ## Functionality Added Since Project Completion
 
 - [x] Database transferred to CloudDB Atlas
-- ✅ Project Deployed on Render.com
-- ✅ Password Security: Passwords are bcrypt hashed on signup before being stored in database
-- ✅ Comments and Comment are now their own component
-- ✅ Comment is a separate backend model, has its own routes and controllers
-- ✅ Comment Schema has functionality for nested comments
-- ✅ User can delete comments
-- ✅ User can delete Posts
-- ✅ Refactored Likes functionality to simplify it and make less fetch requests, updated Post Model to contain Likes Array of UserIds
-- ✅ Post Schema now contains user and comment objects schemas
-- ✅ .populate mongoose method added to backend Post and comment functions
-- ✅ Search now displays in a Modal and allows you to search for users, it will autofill users based on text
-- ✅ Public Profile Pages - User can view other people profiles which contain only their posts
-- ✅ Profile Picture Upload
-- ✅ Profile picture now displays on posts and navBar
-- ✅ New NavBar
-- ✅ Installed TailwindCSS and overhauled all styling, removing and replacing all CSS styling
-- ✅ All pages are fully responsive to different screen sizes
-- ✅ Conditional Rendering added to comments
+- [x] Project Deployed on Render.com
+- [x] Password Security: Passwords are bcrypt hashed on signup before being stored in database
+- [x] Comments and Comment are now their own component
+- [x] Comment is a separate backend model, has its own routes and controllers
+- [x] Comment Schema has functionality for nested comments
+- [x] User can delete comments
+- [x] User can delete Posts
+- [x] Refactored Likes functionality to simplify it and make less fetch requests, updated Post Model to contain Likes Array of UserIds
+- [x] Post Schema now contains user and comment objects schemas
+- [x] .populate mongoose method added to backend Post and comment functions
+- [x] Search now displays in a Modal and allows you to search for users, it will autofill users based on text
+- [x] Public Profile Pages - User can view other people profiles which contain only their posts
+- [x] Profile Picture Upload
+- [x] Profile picture now displays on posts and navBar
+- [x] New NavBar
+- [x] Installed TailwindCSS and overhauled all styling, removing and replacing all CSS styling
+- [x] All pages are fully responsive to different screen sizes
+- [x] Conditional Rendering added to comments
 
 ## Challenges/Actions we took to overcome
 
