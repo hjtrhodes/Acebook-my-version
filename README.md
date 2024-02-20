@@ -58,7 +58,7 @@ Project Sprints:
 
 ## Functionality Added Since Project Completion
 
-- ✅ Database transferred to CloudDB Atlas
+- [x] Database transferred to CloudDB Atlas
 - ✅ Project Deployed on Render.com
 - ✅ Password Security: Passwords are bcrypt hashed on signup before being stored in database
 - ✅ Comments and Comment are now their own component
