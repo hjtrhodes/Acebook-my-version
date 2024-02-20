@@ -80,8 +80,14 @@ Project Sprints:
 
 ## Challenges/Actions we took to overcome
 
+Rerendering:
+- Forcing certain elements of the web page to rerender was a learning curve. This was difficult in relation to comments and likes functionality. We researched, knowledge shared and pair programmed to understand using/passing/managing state, async functions and useEffect hooks to force rerenders when certain actions take place.  
 
+Too many API requests:
+- Often our components were trying to do too much, for example performing a GET request to the api when the data needed was already available in an object that could be passed as a prop. This was the case with Likes functionality and since going back to improve the project I have refactored much of the codebase to utilise OOP rather than overusing fetch requests. 
 
+Components containing too much functionality:
+- Some components contained too much functionality, specifically the Post component which was also holding all of the comments functionality. This meant the two had to come as a pair, you could not have a Post without a comment and vice versa. This is bad design and we discussed it during the project but didn't have the necessary skills or time to improve it at the time. Since project completion I have refactored this component, overhauling all comments functionality both back and front end to create a more streamlined, flexible and maintainable structure which adheres more accurately to SOLID principles. 
 
 
 
