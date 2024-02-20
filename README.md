@@ -24,10 +24,13 @@ As we were starting from a seed codebase we spent some time mapping the relation
 
 Initial Diagram:
 ![Initial Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/RelationshipDiagram_aoyohj.png "Initial Diagram")
+
 After more investigation:
 ![More Detailed Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/AllComponents_ugqngb.png "More Detailed Diagram")
+
 Understanding Token Creation
 ![Understanding Token Creation](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/TokenGenerator_l7j5ly.png "Understanding Token Creation")
+
 Then we created User Stories to inform our decison on what MVP would look like
 ![User Stories](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/User_Stories_p3xopz.png "User Stories")
 
