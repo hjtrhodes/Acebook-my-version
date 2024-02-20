@@ -10,7 +10,7 @@ Click here to see the deployment: [Acebook](https://acebook-mo3r.onrender.com/lo
 ## Project Description
 This is my cloned version of the project repo to continue development at project completion - details of my work after project completion can be found below in 'Functionality Added Since Project Completion'
 
-This was my second project at Makers. We worked in a team of 5 developers using an Agile Process. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks and further practice version control using GitHub. As a result of this project I developed more confidence with React, understanding the relationships between front and back end and particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack, responsible for our feature in both back and front end and regularly knowledge share at daily standups.
+This was my second project at Makers. We worked in a team of 5 developers using an Agile process. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks and further practice version control using GitHub. As a result of this project I developed more confidence with React, understanding the relationships between front and back end and particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack, responsible for our feature in both back and front end and regularly knowledge share at daily standups.
 
 Project Timeline: 14 days to MVP
 Main Language: Javascript
