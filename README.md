@@ -18,24 +18,11 @@ This is my cloned version of the project repo to continue development at project
 
 This was my second project at Makers. We worked in a team of 5 developers using an Agile process. The aim was to create a Facebook clone from a legacy codebase in under 2 weeks and further practice version control using GitHub. As a result of this project I developed more confidence with React, understanding the relationships between front and back end and particularly using asynchronous operations inside useEffect hooks to trigger re-renders at the correct time. As a team we elected to work the full stack, responsible for our feature in both back and front end and regularly knowledge share at daily standups.
 
-### Planning: Understanding the Codebase and User Stories
-As we were starting from a seed codebase we spent some time mapping the relationships between components and files to get a better collective understanding of how it was working. 
+### My responsibilities:
 
-Initial Diagram:
-![Initial Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/RelationshipDiagram_aoyohj.png "Initial Diagram")
-
-After more investigation:
-![More Detailed Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/AllComponents_ugqngb.png "More Detailed Diagram")
-
-Understanding Token Creation
-![Understanding Token Creation](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/TokenGenerator_l7j5ly.png "Understanding Token Creation")
-
-Then we created User Stories to inform our decison on what MVP would look like
-![User Stories](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/User_Stories_p3xopz.png "User Stories")
-
-### Agile Working using Trello
-We turned our user stories into tickets and populated the Trello Board
-![Trello Board](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423331/Demo%20Videos/AcebookTrello_obyoyf.png "Trello Board")
+Project Sprints:
+- Individual responsibilities: Likes, Feed Page display - ensuring it was correctly ordered, all styling
+- Supported others by pair programming on: Comments, Image upload
 
 ## Final Acheived MVP Functionality:
 - Locally Hosted MongoDB Database connected and answering requests
@@ -49,13 +36,7 @@ We turned our user stories into tickets and populated the Trello Board
 - Profile Page: User can view their own profile which will diplay only their posts
 - NavBar: Simple navbar navigation
 
-### My responsibilities:
-
-Project Sprints:
-- Individual responsibilities: Likes, Feed Page display - ensuring it was correctly ordered, all styling
-- Supported others by pair programming on: Comments, Image upload
-
-## Functionality Added Since Project Completion
+### Functionality Added Since Project Completion
 
 - [x] Database transferred to CloudDB Atlas
 - [x] Project Deployed on Render.com
@@ -76,6 +57,25 @@ Project Sprints:
 - [x] Installed TailwindCSS and overhauled all styling, removing and replacing all CSS styling
 - [x] All pages are fully responsive to different screen sizes
 - [x] Conditional Rendering added to comments
+
+## Planning: Understanding the Codebase and User Stories
+As we were starting from a seed codebase we spent some time mapping the relationships between components and files to get a better collective understanding of how it was working. 
+
+Initial Diagram:
+![Initial Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/RelationshipDiagram_aoyohj.png "Initial Diagram")
+
+After more investigation:
+![More Detailed Diagram](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423983/Demo%20Videos/AllComponents_ugqngb.png "More Detailed Diagram")
+
+Understanding Token Creation
+![Understanding Token Creation](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/TokenGenerator_l7j5ly.png "Understanding Token Creation")
+
+Then we created User Stories to inform our decison on what MVP would look like
+![User Stories](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423982/Demo%20Videos/User_Stories_p3xopz.png "User Stories")
+
+### Agile Working using Trello
+We turned our user stories into tickets and populated the Trello Board
+![Trello Board](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423331/Demo%20Videos/AcebookTrello_obyoyf.png "Trello Board")
 
 ## Challenges/Actions we took to overcome
 
