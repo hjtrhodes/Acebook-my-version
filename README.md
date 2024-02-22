@@ -38,7 +38,7 @@ We turned our user stories into tickets and populated the Trello Board
 ![Trello Board](https://res.cloudinary.com/dut4qf1bt/image/upload/v1708423331/Demo%20Videos/AcebookTrello_obyoyf.png "Trello Board")
 
 ## Final Acheived MVP Functionality:
-- Locally Hosted MongoDB Database
+- Locally Hosted MongoDB Database connected and answering requests
 - Login: Must be unique email and correct password
 - Signup: All fields must be completed, email must be correct format, password must be certain length and contain special character
 - Post: User can make a post with text
