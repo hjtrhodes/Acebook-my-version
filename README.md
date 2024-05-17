@@ -7,9 +7,6 @@
 - Testing: Cypress, Jest
 - Other Technologies: TailwindCSS, Multer, PostCSS, Vite, Bcrypt
 
-## Live Deployment
-Click here to see the deployment: [Acebook](https://acebook-mo3r.onrender.com/login)
-
 ## Functionality Demo - Opens on Youtube
 [![Video](https://img.youtube.com/vi/t2ITyMQkPe0/0.jpg)](https://www.youtube.com/watch?v=t2ITyMQkPe0&t=106s)
 
